@@ -3,62 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>LNHAT MMO | Hệ Sinh Thái Dịch Vụ Đẳng Cấp Thế Giới</title>
-    
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-storage-compat.js"></script>
+    <title>LNHAT MMO | Premium SMM Panel & Tài Nguyên Đỉnh Cao</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-storage-compat.js">
+    </script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* 1.1 BIẾN TOÀN CỤC (CSS VARIABLES) */
         :root {
-            /* Hệ màu nền biển sâu */
             --bg-deep-base: #020617;
             --bg-deep-gradient-1: rgba(14, 165, 233, 0.08);
             --bg-deep-gradient-2: rgba(56, 189, 248, 0.05);
-            
-            /* Hệ màu Kính (Glass) */
-            --glass-bg-light: rgba(15, 23, 42, 0.6);
-            --glass-bg-heavy: rgba(15, 23, 42, 0.85);
-            --glass-border: rgba(56, 189, 248, 0.15);
-            --glass-border-highlight: rgba(56, 189, 248, 0.4);
-            
-            /* Hệ màu nhấn (Accent) */
+            --glass-bg-light: rgba(15, 23, 42, 0.65);
+            --glass-bg-heavy: rgba(15, 23, 42, 0.9);
+            --glass-border: rgba(56, 189, 248, 0.18);
+            --glass-border-highlight: rgba(56, 189, 248, 0.5);
             --accent-cyan: #38bdf8;
             --accent-blue: #0ea5e9;
             --accent-indigo: #6366f1;
-            
-            /* Hệ màu chữ */
             --text-primary: #f8fafc;
             --text-secondary: #94a3b8;
             --text-muted: #64748b;
-            
-            /* Hệ màu trạng thái (Status) */
             --status-success-bg: rgba(16, 185, 129, 0.15);
             --status-success-text: #34d399;
             --status-warning-bg: rgba(245, 158, 11, 0.15);
             --status-warning-text: #fbbf24;
             --status-danger-bg: rgba(239, 68, 68, 0.15);
             --status-danger-text: #f87171;
-            
-            /* Các thông số khác */
-            --glass-blur: blur(20px);
+            --glass-blur: blur(24px);
             --radius-xl: 24px;
             --radius-lg: 16px;
             --radius-md: 12px;
             --radius-sm: 8px;
-            --shadow-glow: 0 10px 40px -10px rgba(14, 165, 233, 0.2);
-            --shadow-inset: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-            --sidebar-width: 300px;
-            --header-height: 72px;
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-glow: 0 10px 40px -10px rgba(14, 165, 233, 0.25);
+            --shadow-inset: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
+            --sidebar-width: 320px;
+            --header-height: 76px;
+            --bottom-nav-height: 70px;
+            --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            --skeleton-base: rgba(56, 189, 248, 0.08);
+            --skeleton-shine: rgba(56, 189, 248, 0.18);
         }
 
-        /* 1.2 RESET & SETUP CƠ BẢN */
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -78,45 +74,98 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
-            /* Phối nền đại dương sâu thẳm bằng CSS Multi-Gradients */
-            background-image: 
-                radial-gradient(circle at 10% 20%, var(--bg-deep-gradient-1), transparent 30%),
-                radial-gradient(circle at 90% 80%, var(--bg-deep-gradient-2), transparent 30%),
-                linear-gradient(180deg, var(--bg-deep-base) 0%, #061124 100%);
+            background-image: radial-gradient(circle at 10% 20%, var(--bg-deep-gradient-1), transparent 35%),
+                radial-gradient(circle at 90% 80%, var(--bg-deep-gradient-2), transparent 35%),
+                linear-gradient(180deg, var(--bg-deep-base) 0%, #061226 100%);
             background-attachment: fixed;
             -webkit-tap-highlight-color: transparent;
+            padding-bottom: 0;
         }
 
-        /* 1.3 CUSTOM SCROLLBAR DÀNH CHO PC VÀ IOS TỐI ƯU */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep-base); }
-        ::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.3); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(56, 189, 248, 0.6); }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-deep-base);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.3);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.6);
+        }
 
-        /* 1.4 HỆ THỐNG ANIMATION KEYFRAMES */
         @keyframes fadeUpIn {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
         @keyframes slideInRight {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(0); }
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+        @keyframes logoGlow {
+            0% {
+                filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.8));
+            }
+            100% {
+                filter: drop-shadow(0 0 5px rgba(56, 189, 248, 0.4));
+            }
         }
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
+        @keyframes skeletonPulse {
+            0% {
+                background-position: -200px 0;
+            }
+            100% {
+                background-position: calc(200px + 100%) 0;
+            }
+        }
+        @keyframes rippleEffect {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        @keyframes emptyFloat {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+        @keyframes fadeOutRight {
+            to {
+                opacity: 0;
+                transform: translateX(120%);
+            }
         }
 
-        /* 1.5 SVG ICON UTILITIES */
         .svg-icon {
             width: 24px;
             height: 24px;
@@ -126,328 +175,1031 @@
             stroke-linecap: round;
             stroke-linejoin: round;
         }
-        .svg-icon-sm { width: 18px; height: 18px; stroke-width: 2.5; }
-        .svg-icon-lg { width: 32px; height: 32px; stroke-width: 1.5; }
-
-        /* 1.6 NÚT BẤM VÀ FORM TỔNG HỢP (BUTTONS & INPUTS) */
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 12px 24px; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.3px;
-            border-radius: 30px; border: none; cursor: pointer; transition: var(--transition-smooth);
-            text-decoration: none; outline: none; position: relative; overflow: hidden;
+        .svg-icon-sm {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2.5;
         }
-        .btn:active { transform: scale(0.96); }
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        
+        .svg-icon-lg {
+            width: 34px;
+            height: 34px;
+            stroke-width: 1.5;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 22px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            letter-spacing: 0.4px;
+            border-radius: 24px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn:active {
+            transform: scale(0.96);
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
         .btn-primary {
             background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
-            color: var(--bg-deep-base); box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+            color: #020617;
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
         }
         .btn-primary:hover {
-            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.5); transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.55);
+            transform: translateY(-2px);
         }
-        
         .btn-outline {
-            background: transparent; color: var(--accent-cyan);
-            border: 1px solid var(--accent-cyan);
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 1.5px solid var(--accent-cyan);
         }
-        .btn-outline:hover { background: rgba(56, 189, 248, 0.1); }
-        
-        .btn-danger {
-            background: rgba(239, 68, 68, 0.1); color: var(--status-danger-text);
-            border: 1px solid var(--status-danger-text);
+        .btn-outline:hover {
+            background: rgba(56, 189, 248, 0.12);
+        }
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: rippleEffect 0.6s linear;
+            pointer-events: none;
         }
 
-        .input-group { margin-bottom: 20px; width: 100%; text-align: left; }
+        .input-group {
+            margin-bottom: 22px;
+            width: 100%;
+            text-align: left;
+        }
         .input-group label {
-            display: block; font-size: 0.85rem; font-weight: 600;
-            color: var(--accent-cyan); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
         }
         .input-control {
-            width: 100%; background: rgba(15, 23, 42, 0.5);
-            border: 1px solid var(--glass-border); border-radius: var(--radius-md);
-            padding: 14px 16px; color: var(--text-primary); font-size: 1rem;
-            transition: var(--transition-smooth); outline: none;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1.5px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition-smooth);
+            outline: none;
         }
         .input-control:focus {
-            border-color: var(--accent-cyan); background: rgba(15, 23, 42, 0.8);
-            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+            border-color: var(--accent-cyan);
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
         }
-        .input-control::placeholder { color: var(--text-muted); }
-        select.input-control { appearance: none; cursor: pointer; }
-        select.input-control option { background: var(--bg-deep-base); color: var(--text-primary); }
+        .input-control::placeholder {
+            color: var(--text-muted);
+        }
+        select.input-control {
+            appearance: none;
+            cursor: pointer;
+        }
+        select.input-control option {
+            background: var(--bg-deep-base);
+            color: var(--text-primary);
+            padding: 10px;
+        }
 
-        /* 1.7 HEADER & NAVIGATION BAR */
         .app-header {
             height: var(--header-height);
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 24px; position: sticky; top: 0; z-index: 50;
-            background: var(--glass-bg-heavy); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            border-bottom: 1px solid var(--glass-border); box-shadow: var(--shadow-inset);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: var(--glass-bg-heavy);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-inset);
         }
-
-        .brand-zone { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .brand-logo-icon { color: var(--accent-cyan); animation: pulseGlow 3s infinite; }
+        .brand-zone {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+        .brand-logo-custom {
+            width: 36px;
+            height: 36px;
+            animation: logoGlow 4s infinite;
+        }
         .brand-name {
-            font-size: 1.5rem; font-weight: 900; letter-spacing: 0.5px;
-            background: linear-gradient(to right, var(--accent-cyan), var(--accent-indigo));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 0.8px;
+            background: linear-gradient(135deg, #fff 0%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .brand-tag {
-            background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            font-size: 0.65rem; font-weight: 800; padding: 2px 8px; border-radius: 20px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(99, 102, 241, 0.15));
+            color: var(--accent-cyan);
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            font-size: 0.7rem;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
         }
-
-        .header-actions { display: flex; align-items: center; gap: 16px; }
-        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
         .user-balance-badge {
-            display: flex; align-items: center; gap: 6px;
-            background: var(--status-success-bg); color: var(--status-success-text);
-            border: 1px solid rgba(52, 211, 153, 0.3);
-            padding: 8px 16px; border-radius: 30px; font-weight: 700; font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--status-success-bg);
+            color: var(--status-success-text);
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1rem;
         }
-
         .user-avatar-mini {
-            width: 42px; height: 42px; border-radius: 50%; object-fit: cover;
-            border: 2px solid var(--accent-cyan); background: var(--glass-bg-light);
-            cursor: pointer; transition: var(--transition-smooth);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-cyan);
+            background: var(--glass-bg-light);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
         }
-        .user-avatar-mini:hover { transform: scale(1.05); }
+        .user-avatar-mini:hover {
+            transform: scale(1.1);
+            border-color: #fff;
+        }
 
-        /* 1.8 NÚT HAMBURGER 3 GẠCH VÀ SIDEBAR MENU */
         .menu-toggle-btn {
-            width: 32px; height: 32px; display: flex; flex-direction: column;
-            justify-content: center; gap: 6px; background: transparent; border: none; cursor: pointer; z-index: 200;
+            width: 34px;
+            height: 34px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 200;
         }
         .menu-toggle-btn span {
-            display: block; width: 100%; height: 2px; background: var(--text-primary);
-            border-radius: 2px; transition: var(--transition-smooth);
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: #fff;
+            border-radius: 3px;
+            transition: var(--transition-smooth);
         }
-        .menu-toggle-btn.is-active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent-cyan); }
-        .menu-toggle-btn.is-active span:nth-child(2) { opacity: 0; transform: translateX(20px); }
-        .menu-toggle-btn.is-active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent-cyan); }
+        .menu-toggle-btn.is-active span:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+            background: var(--accent-cyan);
+        }
+        .menu-toggle-btn.is-active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(25px);
+        }
+        .menu-toggle-btn.is-active span:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+            background: var(--accent-cyan);
+        }
 
         .sidebar-backdrop {
-            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-            z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
         }
-        .sidebar-backdrop.is-active { opacity: 1; pointer-events: auto; }
+        .sidebar-backdrop.is-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
         .app-sidebar {
-            position: fixed; top: 0; right: -100%; width: var(--sidebar-width); height: 100vh;
-            background: var(--glass-bg-heavy); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            border-left: 1px solid var(--glass-border); box-shadow: -20px 0 50px rgba(0,0,0,0.5);
-            z-index: 150; transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column; padding: 100px 24px 30px;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--glass-bg-heavy);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-left: 1px solid var(--glass-border);
+            box-shadow: -20px 0 60px rgba(0, 0, 0, 0.6);
+            z-index: 150;
+            transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            padding: 110px 28px 40px;
         }
-        .app-sidebar.is-active { right: 0; }
+        .app-sidebar.is-active {
+            right: 0;
+        }
 
-        .nav-menu-list { display: flex; flex-direction: column; gap: 8px; list-style: none; }
+        .nav-menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            list-style: none;
+        }
         .nav-item {
-            display: flex; align-items: center; gap: 16px; padding: 16px;
-            color: var(--text-secondary); font-size: 1.05rem; font-weight: 600;
-            border-radius: var(--radius-md); cursor: pointer; transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 20px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition-smooth);
         }
-        .nav-item:hover, .nav-item.is-active {
-            background: rgba(56, 189, 248, 0.1); color: var(--accent-cyan);
-            border-left: 4px solid var(--accent-cyan); transform: translateX(5px);
+        .nav-item:hover,
+        .nav-item.is-active {
+            background: rgba(56, 189, 248, 0.12);
+            color: var(--accent-cyan);
+            border-left: 5px solid var(--accent-cyan);
+            transform: translateX(6px);
         }
-        .nav-item.danger-zone { color: var(--status-danger-text); margin-top: auto; border-top: 1px solid var(--glass-border); border-radius: 0; }
-        .nav-item.danger-zone:hover { background: var(--status-danger-bg); border-left: 4px solid var(--status-danger-text); }
+        .nav-item.danger-zone {
+            color: var(--status-danger-text);
+            margin-top: auto;
+            border-top: 1px solid var(--glass-border);
+            border-radius: 0;
+        }
+        .nav-item.danger-zone:hover {
+            background: var(--status-danger-bg);
+            border-left: 5px solid var(--status-danger-text);
+        }
 
-        /* 1.9 KHU VỰC NỘI DUNG CHÍNH (MAIN CONTENT) */
         .app-main {
-            flex: 1; width: 100%; max-width: 1280px; margin: 0 auto;
-            padding: 32px 24px; position: relative;
+            flex: 1;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            position: relative;
+            padding-bottom: 20px;
         }
 
-        .view-section { display: none; }
-        .view-section.is-active { display: block; animation: fadeUpIn 0.5s ease forwards; }
+        .view-section {
+            display: none;
+        }
+        .view-section.is-active {
+            display: block;
+            animation: fadeUpIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
 
-        /* 1.10 THIẾT KẾ THẺ GLASS CARD */
         .glass-card {
-            background: var(--glass-bg-light); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            border: 1px solid var(--glass-border); border-radius: var(--radius-xl);
-            padding: 32px; margin-bottom: 24px; box-shadow: var(--shadow-glow); position: relative; overflow: hidden;
+            background: var(--glass-bg-light);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 36px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-glow);
+            position: relative;
+            overflow: hidden;
         }
         .glass-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
         }
 
         .section-heading {
-            display: flex; align-items: center; gap: 12px; font-size: 1.4rem; font-weight: 800;
-            color: #fff; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .section-heading h2 {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
         }
 
-        /* 1.11 LƯỚI SẢN PHẨM (SHOP GRID) */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-        
+        .filter-group {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 24px;
+        }
+        .filter-group::-webkit-scrollbar {
+            height: 4px;
+        }
+        .filter-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+        }
+        .filter-btn:hover {
+            border-color: var(--accent-cyan);
+            color: #fff;
+        }
+        .filter-btn.is-active {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+        }
         .product-item {
-            background: rgba(2, 6, 23, 0.4); border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column;
-            transition: var(--transition-smooth); position: relative; overflow: hidden;
+            background: rgba(2, 6, 23, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
         }
         .product-item:hover {
-            border-color: var(--glass-border-highlight); transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 20px rgba(56, 189, 248, 0.1);
+            border-color: var(--glass-border-highlight);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(56, 189, 248, 0.15);
         }
-        
         .prod-badge {
-            position: absolute; top: 16px; right: 16px; background: rgba(56, 189, 248, 0.15);
-            color: var(--accent-cyan); font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 12px; text-transform: uppercase;
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-cyan);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 12px;
+            text-transform: uppercase;
         }
-        
-        .prod-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 10px; padding-right: 60px; line-height: 1.4; }
-        .prod-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; flex: 1; }
-        
+        .prod-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 12px;
+            padding-right: 70px;
+            line-height: 1.4;
+        }
+        .prod-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+            flex: 1;
+        }
         .prod-footer {
-            display: flex; align-items: center; justify-content: space-between;
-            padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
-        .prod-price { font-size: 1.3rem; font-weight: 900; color: var(--accent-cyan); }
+        .prod-price {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: var(--accent-cyan);
+        }
 
-        /* 1.12 TAB NẠP TIỀN */
-        .tab-navigation { display: flex; gap: 12px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 8px; border-bottom: 1px solid var(--glass-border); }
+        .tab-navigation {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 36px;
+            border-bottom: 2px solid var(--glass-border);
+        }
         .tab-btn {
-            display: flex; align-items: center; gap: 8px; padding: 14px 24px;
-            background: transparent; border: none; color: var(--text-muted); font-weight: 600; font-size: 0.95rem;
-            cursor: pointer; transition: var(--transition-smooth); position: relative; white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 28px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            white-space: nowrap;
         }
         .tab-btn::after {
-            content: ''; position: absolute; bottom: -1px; left: 0; width: 0; height: 3px;
-            background: var(--accent-cyan); transition: var(--transition-smooth); border-radius: 3px 3px 0 0;
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 4px;
+            background: var(--accent-cyan);
+            transition: var(--transition-smooth);
+            border-radius: 4px 4px 0 0;
         }
-        .tab-btn.is-active { color: var(--accent-cyan); }
-        .tab-btn.is-active::after { width: 100%; }
+        .tab-btn.is-active {
+            color: var(--accent-cyan);
+        }
+        .tab-btn.is-active::after {
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(56, 189, 248, 0.5);
+        }
 
-        .tab-pane { display: none; animation: fadeIn 0.4s ease; }
-        .tab-pane.is-active { display: block; }
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .tab-pane.is-active {
+            display: block;
+        }
 
         .qr-container {
-            background: #fff; padding: 20px; border-radius: var(--radius-lg);
-            display: inline-block; margin: 24px 0; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            background: #fff;
+            padding: 24px;
+            border-radius: var(--radius-xl);
+            display: inline-block;
+            margin: 28px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
         }
-        .qr-container img { max-width: 240px; display: block; }
+        .qr-container img {
+            max-width: 260px;
+            display: block;
+        }
         .bank-info-box {
-            background: rgba(0,0,0,0.4); border: 1px dashed var(--glass-border);
-            border-radius: var(--radius-md); padding: 20px; text-align: left; max-width: 400px; margin: 0 auto;
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px dashed var(--glass-border-highlight);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: left;
+            max-width: 450px;
+            margin: 0 auto;
         }
-        .bank-info-box p { margin-bottom: 10px; font-size: 0.95rem; color: var(--text-secondary); }
-        .bank-info-box strong { color: #fff; font-size: 1rem; }
-        .highlight-memo { font-size: 1.2rem !important; color: var(--accent-cyan) !important; font-weight: 900; letter-spacing: 1px; }
+        .bank-info-box p {
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+        }
+        .bank-info-box strong {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .highlight-memo {
+            font-size: 1.3rem !important;
+            color: var(--accent-cyan) !important;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
 
-        /* 1.13 HỒ SƠ & UPLOAD AVATAR */
         .profile-banner {
-            display: flex; align-items: center; gap: 32px; padding: 32px;
-            background: rgba(15, 23, 42, 0.4); border-radius: var(--radius-lg); margin-bottom: 32px; flex-wrap: wrap;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 40px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: var(--radius-xl);
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .avatar-upload-zone { position: relative; width: 130px; height: 130px; }
+        .avatar-upload-zone {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
         .avatar-huge {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-            border: 4px solid var(--accent-cyan); background: var(--bg-deep-base); box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent-cyan);
+            background: var(--bg-deep-base);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
         }
         .btn-upload-cam {
-            position: absolute; bottom: 4px; right: 4px; width: 40px; height: 40px; border-radius: 50%;
-            background: var(--accent-indigo); color: #fff; display: flex; align-items: center; justify-content: center;
-            border: 3px solid var(--bg-deep-base); cursor: pointer; transition: var(--transition-smooth);
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--accent-indigo);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--bg-deep-base);
+            cursor: pointer;
+            transition: var(--transition-smooth);
         }
-        .btn-upload-cam:hover { transform: scale(1.1) rotate(10deg); }
-        
-        .profile-stats p { font-size: 1rem; color: var(--text-muted); margin-bottom: 12px; }
-        .profile-stats strong { color: #fff; font-weight: 700; }
-        .stat-value-large { font-size: 1.3rem !important; color: var(--status-success-text) !important; }
+        .btn-upload-cam:hover {
+            transform: scale(1.15) rotate(15deg);
+        }
 
-        /* 1.14 BẢNG DỮ LIỆU LỊCH SỬ (TABLES) */
-        .table-wrapper { overflow-x: auto; border-radius: var(--radius-md); border: 1px solid var(--glass-border); }
-        .data-table { width: 100%; border-collapse: collapse; min-width: 600px; text-align: left; }
-        .data-table thead { background: rgba(255,255,255,0.03); }
+        .profile-stats p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+        .profile-stats strong {
+            color: #fff;
+            font-weight: 800;
+        }
+        .stat-value-large {
+            font-size: 1.5rem !important;
+            color: var(--status-success-text) !important;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            min-height: 80px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 700px;
+            text-align: left;
+        }
+        .data-table thead {
+            background: rgba(255, 255, 255, 0.04);
+        }
         .data-table th {
-            padding: 16px 20px; font-size: 0.85rem; font-weight: 700; color: var(--accent-cyan);
-            text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--glass-border);
+            padding: 18px 24px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--glass-border);
         }
         .data-table td {
-            padding: 16px 20px; font-size: 0.95rem; color: var(--text-primary);
-            border-bottom: 1px solid rgba(255,255,255,0.03); vertical-align: middle;
+            padding: 18px 24px;
+            font-size: 1rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            vertical-align: middle;
         }
-        .data-table tbody tr:hover { background: rgba(56, 189, 248, 0.03); }
-        .data-table tbody tr:last-child td { border-bottom: none; }
-        
+        .data-table tbody tr:hover {
+            background: rgba(56, 189, 248, 0.04);
+        }
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
         .badge-status {
-            display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
-            border-radius: 20px; font-size: 0.8rem; font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 800;
         }
-        .badge-success { background: var(--status-success-bg); color: var(--status-success-text); border: 1px solid rgba(52, 211, 153, 0.2); }
-        .badge-warning { background: var(--status-warning-bg); color: var(--status-warning-text); border: 1px solid rgba(251, 191, 36, 0.2); }
-        
+        .badge-success {
+            background: var(--status-success-bg);
+            color: var(--status-success-text);
+            border: 1px solid rgba(52, 211, 153, 0.25);
+        }
+        .badge-warning {
+            background: var(--status-warning-bg);
+            color: var(--status-warning-text);
+            border: 1px solid rgba(251, 191, 36, 0.25);
+        }
+
         .copy-box {
-            background: rgba(0,0,0,0.5); border: 1px dashed var(--glass-border);
-            padding: 10px 14px; border-radius: var(--radius-sm); font-family: monospace;
-            color: var(--accent-cyan); word-break: break-all; cursor: pointer; font-size: 0.85rem;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px dashed var(--glass-border);
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            font-family: monospace;
+            color: var(--accent-cyan);
+            word-break: break-all;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
         }
-        .copy-box:hover { background: rgba(56, 189, 248, 0.1); }
+        .copy-box:hover {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: var(--accent-cyan);
+        }
 
-        /* 1.15 MODAL CHUNG & AUTH MODAL */
         .modal-container {
-            position: fixed; inset: 0; background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            display: flex; align-items: center; justify-content: center; z-index: 9999;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 20px;
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+            padding: 20px;
         }
-        .modal-container.is-active { opacity: 1; pointer-events: auto; }
-        
-        .modal-content {
-            background: var(--glass-bg-heavy); border: 1px solid var(--glass-border-highlight);
-            border-radius: var(--radius-xl); padding: 40px; width: 100%; max-width: 450px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(56, 189, 248, 0.1);
-            transform: scale(0.95) translateY(20px); transition: var(--transition-smooth);
+        .modal-container.is-active {
+            opacity: 1;
+            pointer-events: auto;
         }
-        .modal-container.is-active .modal-content { transform: scale(1) translateY(0); }
-        
-        .modal-header { text-align: center; margin-bottom: 30px; }
-        .modal-title { font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
-        .modal-desc { color: var(--text-secondary); font-size: 0.95rem; }
 
-        /* 1.16 HỆ THỐNG TOAST NOTIFICATION (THAY THẾ ALERT) */
-        .toast-wrapper { position: fixed; bottom: 30px; right: 30px; z-index: 10000; display: flex; flex-direction: column; gap: 12px; }
+        .modal-content {
+            background: var(--glass-bg-heavy);
+            border: 1px solid var(--glass-border-highlight);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7), 0 0 40px rgba(56, 189, 248, 0.15);
+            transform: scale(0.9) translateY(30px);
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+        .modal-container.is-active .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .modal-close-btn:hover {
+            color: var(--status-danger-text);
+            transform: rotate(90deg);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        .modal-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .buff-pack-info {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+        .buff-pack-info p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        .buff-pack-info strong {
+            color: #fff;
+            font-size: 1.05rem;
+        }
+
+        .toast-wrapper {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
         .toast-item {
-            display: flex; align-items: center; gap: 14px; padding: 16px 24px;
-            background: var(--glass-bg-heavy); border-left: 4px solid var(--accent-cyan);
-            border-radius: var(--radius-md); box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            color: #fff; font-size: 0.95rem; font-weight: 500; min-width: 300px; max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 24px;
+            background: var(--glass-bg-heavy);
+            border-left: 5px solid var(--accent-cyan);
+            border-radius: var(--radius-md);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            min-width: 320px;
+            max-width: 450px;
             animation: slideInRight 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .toast-icon { width: 24px; height: 24px; }
-        .toast-success { border-color: var(--status-success-text); }
-        .toast-success .toast-icon { color: var(--status-success-text); }
-        .toast-error { border-color: var(--status-danger-text); }
-        .toast-error .toast-icon { color: var(--status-danger-text); }
-        .toast-warning { border-color: var(--status-warning-text); }
-        .toast-warning .toast-icon { color: var(--status-warning-text); }
-        @keyframes fadeOutRight { to { opacity: 0; transform: translateX(100%); } }
+        .toast-icon {
+            width: 26px;
+            height: 26px;
+        }
+        .toast-success {
+            border-color: var(--status-success-text);
+        }
+        .toast-success .toast-icon {
+            color: var(--status-success-text);
+        }
+        .toast-error {
+            border-color: var(--status-danger-text);
+        }
+        .toast-error .toast-icon {
+            color: var(--status-danger-text);
+        }
+        .toast-warning {
+            border-color: var(--status-warning-text);
+        }
+        .toast-warning .toast-icon {
+            color: var(--status-warning-text);
+        }
 
-        /* 1.17 MÀN HÌNH CHÀO MỪNG (WELCOME SCREEN) */
-        .hero-section { text-align: center; padding: 80px 20px; max-width: 800px; margin: 0 auto; }
-        .hero-title { font-size: 3rem; font-weight: 900; line-height: 1.2; margin-bottom: 24px; background: linear-gradient(135deg, #fff, var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-desc { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 40px; }
-        .hero-features { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 60px; }
-        .feature-item { background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); padding: 24px; border-radius: var(--radius-lg); width: 220px; }
-        .feature-icon { width: 40px; height: 40px; color: var(--accent-cyan); margin-bottom: 16px; }
+        .hero-section {
+            text-align: center;
+            padding: 100px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 28px;
+            background: linear-gradient(135deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 48px;
+        }
 
-        /* 1.18 FOOTER */
-        .app-footer { margin-top: auto; padding: 30px 24px; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-muted); font-size: 0.9rem; background: rgba(2, 6, 23, 0.8); }
+        .app-footer {
+            margin-top: auto;
+            padding: 36px 24px;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            background: rgba(2, 6, 23, 0.85);
+        }
 
-        /* 1.19 RESPONSIVE DESIGN (MOBILE OPTIMIZATION) */
+        /* Skeleton Loading Styles */
+        .skeleton-box {
+            background: linear-gradient(90deg, var(--skeleton-base) 0%, var(--skeleton-shine) 50%, var(--skeleton-base) 100%);
+            background-size: 200px 100%;
+            animation: skeletonPulse 1.8s ease-in-out infinite;
+            border-radius: var(--radius-md);
+        }
+        .skeleton-card {
+            background: rgba(2, 6, 23, 0.5);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .skeleton-card .skeleton-line {
+            height: 16px;
+            border-radius: 6px;
+            background: linear-gradient(90deg, var(--skeleton-base) 0%, var(--skeleton-shine) 50%, var(--skeleton-base) 100%);
+            background-size: 200px 100%;
+            animation: skeletonPulse 1.8s ease-in-out infinite;
+        }
+        .skeleton-card .skeleton-line.short {
+            width: 60%;
+        }
+        .skeleton-card .skeleton-line.medium {
+            width: 80%;
+        }
+        .skeleton-card .skeleton-line.long {
+            width: 100%;
+        }
+        .skeleton-card .skeleton-line.title {
+            height: 22px;
+            width: 70%;
+        }
+        .skeleton-card .skeleton-line.price {
+            height: 28px;
+            width: 40%;
+            margin-top: auto;
+        }
+        .skeleton-table-row {
+            display: flex;
+            gap: 20px;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .skeleton-table-row .skeleton-line {
+            height: 16px;
+            border-radius: 6px;
+            flex: 1;
+            background: linear-gradient(90deg, var(--skeleton-base) 0%, var(--skeleton-shine) 50%, var(--skeleton-base) 100%);
+            background-size: 200px 100%;
+            animation: skeletonPulse 1.8s ease-in-out infinite;
+        }
+        .skeleton-hidden {
+            display: none !important;
+        }
+
+        /* Empty State Styles */
+        .empty-state-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            animation: fadeIn 0.5s ease;
+        }
+        .empty-state-container svg {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 24px;
+            opacity: 0.5;
+            animation: emptyFloat 4s ease-in-out infinite;
+        }
+        .empty-state-container h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        .empty-state-container p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            max-width: 360px;
+            line-height: 1.6;
+        }
+
+        /* Mobile Bottom Navigation */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--bottom-nav-height);
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            z-index: 90;
+            padding: 0 16px;
+            padding-bottom: env(safe-area-inset-bottom, 8px);
+            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+        }
+        .mobile-bottom-nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 16px;
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            border: none;
+            background: transparent;
+            min-width: 60px;
+        }
+        .mobile-nav-item svg {
+            width: 22px;
+            height: 22px;
+            transition: var(--transition-smooth);
+        }
+        .mobile-nav-item.is-active {
+            color: var(--accent-cyan);
+            background: rgba(56, 189, 248, 0.1);
+        }
+        .mobile-nav-item.is-active svg {
+            stroke: var(--accent-cyan);
+            filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.5));
+        }
+        .mobile-nav-item:active {
+            transform: scale(0.92);
+        }
+
         @media (max-width: 768px) {
-            .app-main { padding: 20px 16px; }
-            .hero-title { font-size: 2.2rem; }
-            .product-grid { grid-template-columns: 1fr; }
-            .profile-banner { flex-direction: column; text-align: center; gap: 20px; }
-            .app-header { padding: 0 16px; }
-            .brand-name { display: none; } /* Giấu chữ trên điện thoại, chỉ hiện Logo */
-            .toast-wrapper { bottom: 20px; right: 20px; left: 20px; }
-            .toast-item { min-width: unset; width: 100%; }
+            .app-main {
+                padding: 24px 16px;
+                padding-bottom: calc(var(--bottom-nav-height) + 30px);
+            }
+            .hero-title {
+                font-size: 2.4rem;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            .profile-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 24px;
+                padding: 24px;
+            }
+            .app-header {
+                padding: 0 16px;
+            }
+            .brand-name {
+                display: none;
+            }
+            .toast-wrapper {
+                bottom: calc(var(--bottom-nav-height) + 20px);
+                right: 20px;
+                left: 20px;
+            }
+            .toast-item {
+                min-width: unset;
+                width: 100%;
+            }
+            .app-footer {
+                padding-bottom: calc(var(--bottom-nav-height) + 20px);
+            }
+            .mobile-bottom-nav {
+                display: block;
+            }
+            .sidebar-backdrop {
+                z-index: 95;
+            }
+            .app-sidebar {
+                z-index: 96;
+            }
         }
     </style>
 </head>
@@ -465,29 +1217,40 @@
         <symbol id="icon-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></symbol>
         <symbol id="icon-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></symbol>
         <symbol id="icon-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></symbol>
+        <symbol id="icon-empty-box" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></symbol>
         <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></symbol>
+        <symbol id="icon-logo-lnhat" viewBox="0 0 100 100">
+            <polygon points="50,5 95,25 95,75 50,95 5,75 5,25" fill="none" stroke="url(#grad1)" stroke-width="4" stroke-linejoin="round"/>
+            <polygon points="50,5 50,45 95,25" fill="rgba(56, 189, 248, 0.2)" stroke="url(#grad1)" stroke-width="2"/>
+            <polygon points="50,5 50,45 5,25" fill="rgba(14, 165, 233, 0.4)" stroke="url(#grad1)" stroke-width="2"/>
+            <polygon points="50,45 95,75 50,95" fill="rgba(99, 102, 241, 0.3)" stroke="url(#grad1)" stroke-width="2"/>
+            <polygon points="50,45 5,75 50,95" fill="rgba(56, 189, 248, 0.1)" stroke="url(#grad1)" stroke-width="2"/>
+            <circle cx="50" cy="45" r="5" fill="#fff"/>
+            <defs>
+                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#38bdf8;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+        </symbol>
     </svg>
 
     <div id="toastContainer" class="toast-wrapper"></div>
-
     <div class="sidebar-backdrop" id="uiBackdrop" onclick="dongMenuSidebar()"></div>
 
     <header class="app-header">
         <div class="brand-zone" onclick="location.reload()">
-            <svg class="svg-icon brand-logo-icon"><use href="#icon-shield"></use></svg>
+            <svg class="brand-logo-custom"><use href="#icon-logo-lnhat"></use></svg>
             <span class="brand-name">LNHAT MMO</span>
             <span class="brand-tag">ULTIMATE</span>
         </div>
-        
         <div class="header-actions" id="headerAuthBtns">
-            <button class="btn btn-outline" onclick="moKhungAuth('login')">Đăng Nhập</button>
-            <button class="btn btn-primary" onclick="moKhungAuth('register')">Đăng Ký Khách</button>
+            <button class="btn btn-outline btn-ripple" onclick="moKhungAuth('login')">Đăng Nhập</button>
+            <button class="btn btn-primary btn-ripple" onclick="moKhungAuth('register')">Tạo Tài Khoản</button>
         </div>
-
         <div class="header-actions" id="headerUserBtns" style="display: none;">
             <div class="user-balance-badge" id="lblTopBalance">
-                <svg class="svg-icon svg-icon-sm"><use href="#icon-wallet"></use></svg>
-                0 đ
+                <svg class="svg-icon svg-icon-sm"><use href="#icon-wallet"></use></svg> 0 đ
             </div>
             <img src="" class="user-avatar-mini" id="imgTopAvatar" alt="Avatar" onclick="xuLyChuyenTrang('profile')">
             <button class="menu-toggle-btn" id="btnHamburger" onclick="moMenuSidebar()">
@@ -499,16 +1262,16 @@
     <aside class="app-sidebar" id="uiSidebar">
         <ul class="nav-menu-list">
             <li class="nav-item is-active" id="nav-shop" onclick="xuLyChuyenTrang('shop')">
-                <svg class="svg-icon"><use href="#icon-shop"></use></svg> Cửa Hàng Nguyên Liệu
+                <svg class="svg-icon"><use href="#icon-shop"></use></svg> Cửa Hàng Chuyên Cấp
             </li>
             <li class="nav-item" id="nav-deposit" onclick="xuLyChuyenTrang('deposit')">
-                <svg class="svg-icon"><use href="#icon-wallet"></use></svg> Nạp Tiền Hệ Thống
+                <svg class="svg-icon"><use href="#icon-wallet"></use></svg> Nạp Tiền Tự Động
             </li>
             <li class="nav-item" id="nav-profile" onclick="xuLyChuyenTrang('profile')">
                 <svg class="svg-icon"><use href="#icon-user"></use></svg> Hồ Sơ Tài Khoản
             </li>
             <li class="nav-item" id="nav-h-buy" onclick="xuLyChuyenTrang('history-buy')">
-                <svg class="svg-icon"><use href="#icon-history"></use></svg> Lịch Sử Mua Acc/Via
+                <svg class="svg-icon"><use href="#icon-history"></use></svg> Lịch Sử Mua Nguyên Liệu
             </li>
             <li class="nav-item" id="nav-h-buff" onclick="xuLyChuyenTrang('history-buff')">
                 <svg class="svg-icon"><use href="#icon-rocket"></use></svg> Lịch Sử Buff Tương Tác
@@ -523,117 +1286,108 @@
     </aside>
 
     <main class="app-main">
-        
         <section id="view-welcome" class="view-section is-active">
             <div class="glass-card hero-section">
-                <h1 class="hero-title">Nền Tảng Cung Cấp Dịch Vụ MMO Số 1</h1>
+                <h1 class="hero-title">Đỉnh Cao Tài Nguyên MMO Số 1</h1>
                 <p class="hero-desc">
-                    Hệ thống bán nguyên liệu Via/Clone/Proxy tự động và Buff tương tác mạng xã hội siêu tốc. 
-                    Giao dịch an toàn, bảo mật tuyệt đối dữ liệu người dùng qua nền tảng Google Firebase.
+                    Phân phối Via, Clone, Proxy chất lượng cao. Hệ thống Buff tương tác (View, Like, Sub) mạnh mẽ nhất thị trường.
+                    Bảo mật dữ liệu tối đa. Xử lý giao dịch chỉ trong 0.5 giây!
                 </p>
-                <button class="btn btn-primary" style="padding: 16px 40px; font-size: 1.1rem;" onclick="moKhungAuth('register')">
-                    Tham Gia Hệ Thống Ngay
+                <button class="btn btn-primary btn-ripple" style="padding: 15px 36px; font-size: 1.05rem;" onclick="moKhungAuth('register')">
+                    Tham Gia Với Chúng Tôi Ngay
                 </button>
-                
-                <div class="hero-features">
-                    <div class="feature-item">
-                        <svg class="svg-icon feature-icon"><use href="#icon-rocket"></use></svg>
-                        <h3 style="margin-bottom:8px;">Siêu Tốc Độ</h3>
-                        <p style="font-size:0.85rem; color:var(--text-secondary);">Giao dịch tự động 100%, trả tài khoản trong vòng 1 giây.</p>
-                    </div>
-                    <div class="feature-item">
-                        <svg class="svg-icon feature-icon"><use href="#icon-shield"></use></svg>
-                        <h3 style="margin-bottom:8px;">Bảo Mật Kép</h3>
-                        <p style="font-size:0.85rem; color:var(--text-secondary);">Hệ thống mã hóa tối tân, ẩn danh hoàn toàn người mua.</p>
-                    </div>
-                    <div class="feature-item">
-                        <svg class="svg-icon feature-icon"><use href="#icon-wallet"></use></svg>
-                        <h3 style="margin-bottom:8px;">Nạp Tiền Đa Dạng</h3>
-                        <p style="font-size:0.85rem; color:var(--text-secondary);">Hỗ trợ Bank API và Thẻ Cào siêu tiện lợi 24/7.</p>
-                    </div>
-                </div>
             </div>
         </section>
 
         <section id="view-shop" class="view-section">
             <div class="glass-card">
-                <h2 class="section-title"><svg class="svg-icon"><use href="#icon-shop"></use></svg> Kho Nguyên Liệu & Tài Khoản</h2>
-                <div class="product-grid" id="containerGridAcc">
-                    </div>
+                <div class="section-heading">
+                    <h2><svg class="svg-icon"><use href="#icon-shield"></use></svg> Kho Tài Khoản MMO (Via, Clone, Gmail)</h2>
+                </div>
+                <div class="filter-group">
+                    <button class="filter-btn is-active btn-ripple" id="flt-acc-all" onclick="locSanPham('acc', 'all')">Tất Cả Nền Tảng</button>
+                    <button class="filter-btn btn-ripple" id="flt-acc-facebook" onclick="locSanPham('acc', 'facebook')">Facebook</button>
+                    <button class="filter-btn btn-ripple" id="flt-acc-google" onclick="locSanPham('acc', 'google')">Google / Gmail</button>
+                    <button class="filter-btn btn-ripple" id="flt-acc-tiktok" onclick="locSanPham('acc', 'tiktok')">TikTok</button>
+                </div>
+                <div class="product-grid" id="containerGridAcc"></div>
+                <div class="product-grid skeleton-hidden" id="skeletonGridAcc">
+                    <div class="skeleton-card"><div class="skeleton-line title"></div><div class="skeleton-line long"></div><div class="skeleton-line medium"></div><div class="skeleton-line price"></div></div>
+                    <div class="skeleton-card"><div class="skeleton-line title"></div><div class="skeleton-line long"></div><div class="skeleton-line medium"></div><div class="skeleton-line price"></div></div>
+                    <div class="skeleton-card"><div class="skeleton-line title"></div><div class="skeleton-line long"></div><div class="skeleton-line medium"></div><div class="skeleton-line price"></div></div>
+                </div>
             </div>
-
             <div class="glass-card">
-                <h2 class="section-title"><svg class="svg-icon"><use href="#icon-rocket"></use></svg> Dịch Vụ Tương Tác (Buff Auto)</h2>
-                <div class="product-grid" id="containerGridBuff">
-                    </div>
+                <div class="section-heading">
+                    <h2><svg class="svg-icon"><use href="#icon-rocket"></use></svg> Trạm Buff Tương Tác Đỉnh Cao</h2>
+                </div>
+                <div class="filter-group">
+                    <button class="filter-btn is-active btn-ripple" id="flt-buff-all" onclick="locSanPham('buff', 'all')">Tất Cả Nền Tảng</button>
+                    <button class="filter-btn btn-ripple" id="flt-buff-facebook" onclick="locSanPham('buff', 'facebook')">Facebook</button>
+                    <button class="filter-btn btn-ripple" id="flt-buff-tiktok" onclick="locSanPham('buff', 'tiktok')">TikTok</button>
+                    <button class="filter-btn btn-ripple" id="flt-buff-youtube" onclick="locSanPham('buff', 'youtube')">Youtube</button>
+                </div>
+                <div class="product-grid" id="containerGridBuff"></div>
+                <div class="product-grid skeleton-hidden" id="skeletonGridBuff">
+                    <div class="skeleton-card"><div class="skeleton-line title"></div><div class="skeleton-line long"></div><div class="skeleton-line medium"></div><div class="skeleton-line price"></div></div>
+                    <div class="skeleton-card"><div class="skeleton-line title"></div><div class="skeleton-line long"></div><div class="skeleton-line medium"></div><div class="skeleton-line price"></div></div>
+                    <div class="skeleton-card"><div class="skeleton-line title"></div><div class="skeleton-line long"></div><div class="skeleton-line medium"></div><div class="skeleton-line price"></div></div>
+                </div>
             </div>
         </section>
 
         <section id="view-deposit" class="view-section">
             <div class="glass-card">
-                <h2 class="section-title"><svg class="svg-icon"><use href="#icon-wallet"></use></svg> Nạp Tiền Vào Ví Hệ Thống</h2>
-                
+                <div class="section-heading">
+                    <h2><svg class="svg-icon"><use href="#icon-wallet"></use></svg> Nạp Tiền Hệ Thống</h2>
+                </div>
                 <div class="tab-navigation">
-                    <button class="tab-btn is-active" onclick="chuyenTabNapTien('bank', this)">🏦 Bank Chuyển Khoản</button>
-                    <button class="tab-btn" onclick="chuyenTabNapTien('card', this)">💳 Thẻ Cào (Phí 20%)</button>
+                    <button class="tab-btn is-active btn-ripple" onclick="chuyenTabNapTien('bank', this)">🏦 Chuyển Khoản Ngân Hàng (Khuyên dùng)</button>
+                    <button class="tab-btn btn-ripple" onclick="chuyenTabNapTien('card', this)">💳 Thẻ Cào Điện Thoại / Game</button>
                 </div>
-
                 <div id="tab-pane-bank" class="tab-pane is-active" style="text-align: center;">
-                    <p style="color: var(--text-secondary);">Quét mã VietQR dưới đây qua ứng dụng ngân hàng. Vui lòng ghi ĐÚNG nội dung chuyển khoản!</p>
-                    
+                    <p style="color: var(--text-secondary); margin-bottom: 20px;">Vui lòng dùng App Ngân hàng quét mã QR, hoặc sao chép chính xác Nội Dung Chuyển Khoản.</p>
                     <div class="qr-container">
-                        <img id="imgRenderQrBank" src="" alt="Mã Nạp Tiền VietQR">
+                        <img id="imgRenderQrBank" src="" alt="Mã QR Chuyển Khoản">
                     </div>
-                    
                     <div class="bank-info-box">
-                        <p>Ngân hàng nhận: <strong>MB BANK</strong></p>
-                        <p>Chủ tài khoản: <strong>NGUYEN LONG NHAT</strong></p>
-                        <p>Số tài khoản: <strong style="color:var(--accent-cyan);">0987654321</strong></p>
-                        <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:12px 0;">
-                        <p>Nội dung bắt buộc: <strong class="highlight-memo" id="txtRenderMemo">LNHATMMO ...</strong></p>
+                        <p>Ngân hàng hưởng thụ: <strong>MB BANK</strong></p>
+                        <p>Tên chủ tài khoản: <strong>NGUYEN LONG NHAT</strong></p>
+                        <p>Số tài khoản: <strong style="color:var(--accent-cyan); font-size:1.2rem;">0987654321</strong></p>
+                        <hr style="border:0; border-top:1px dashed var(--glass-border); margin:15px 0;">
+                        <p>Nội dung bắt buộc: <br><strong class="highlight-memo" id="txtRenderMemo">LNHATMMO LOADING...</strong></p>
                     </div>
-
-                    <div style="max-width: 400px; margin: 30px auto 0; text-align: left;">
+                    <div style="max-width: 450px; margin: 35px auto 0; text-align: left;">
                         <div class="input-group">
-                            <label>Số tiền bạn vừa chuyển (VNĐ):</label>
-                            <input type="number" id="inpTienBank" class="input-control" placeholder="Ví dụ: 50000">
+                            <label>Số Tiền Bạn Đã Chuyển (VNĐ)</label>
+                            <input type="number" id="inpTienBank" class="input-control" placeholder="Tối thiểu 10.000 đ">
                         </div>
-                        <button class="btn btn-primary" style="width:100%; padding:14px;" onclick="thucThiBaoNapBank()">XÁC NHẬN ĐÃ CHUYỂN TIỀN</button>
+                        <button class="btn btn-primary btn-ripple" style="width:100%; padding:14px; font-size:0.95rem;" onclick="thucThiBaoNapBank()">TÔI ĐÃ THỰC HIỆN CHUYỂN KHOẢN</button>
                     </div>
                 </div>
-
                 <div id="tab-pane-card" class="tab-pane">
-                    <div style="max-width: 500px; margin: 0 auto;">
+                    <div style="max-width: 550px; margin: 0 auto; background: rgba(0,0,0,0.2); padding: 30px; border-radius: var(--radius-lg); border: 1px solid var(--glass-border);">
                         <div class="input-group">
                             <label>Nhà Mạng / Loại Thẻ</label>
                             <select id="inpLoaiThe" class="input-control">
-                                <option value="Viettel">Viettel</option>
-                                <option value="Vinaphone">Vinaphone</option>
-                                <option value="Mobifone">Mobifone</option>
-                                <option value="Garena">Garena</option>
-                                <option value="Zing">Zing</option>
+                                <option value="Viettel">Viettel</option><option value="Vinaphone">Vinaphone</option><option value="Mobifone">Mobifone</option><option value="Garena">Garena</option><option value="Zing">Zing</option>
                             </select>
                         </div>
                         <div class="input-group">
                             <label>Mệnh Giá Thẻ</label>
                             <select id="inpMenhGiaThe" class="input-control">
-                                <option value="10000">10.000 đ</option>
-                                <option value="20000">20.000 đ</option>
-                                <option value="50000">50.000 đ</option>
-                                <option value="100000">100.000 đ</option>
-                                <option value="200000">200.000 đ</option>
-                                <option value="500000">500.000 đ</option>
+                                <option value="10000">10.000 đ</option><option value="20000">20.000 đ</option><option value="50000">50.000 đ</option><option value="100000">100.000 đ</option><option value="200000">200.000 đ</option><option value="500000">500.000 đ</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <label>Số Seri</label>
-                            <input type="text" id="inpSeriThe" class="input-control" placeholder="Dãy số Seri in trên thẻ">
+                            <label>Số Seri in trên thẻ</label>
+                            <input type="text" id="inpSeriThe" class="input-control" placeholder="Nhập dãy Seri">
                         </div>
                         <div class="input-group">
-                            <label>Mã Thẻ (Dưới lớp cào)</label>
-                            <input type="text" id="inpMaThe" class="input-control" placeholder="Nhập mã nạp thẻ">
+                            <label>Mã Thẻ (Mã dưới lớp cào)</label>
+                            <input type="text" id="inpMaThe" class="input-control" placeholder="Nhập mã thẻ">
                         </div>
-                        <button class="btn btn-primary" style="width:100%; margin-top:16px; padding:14px;" onclick="thucThiBaoNapTheCao()">GỬI THẺ CÀO LÊN HỆ THỐNG</button>
+                        <button class="btn btn-primary btn-ripple" style="width:100%; margin-top:10px; padding:14px;" onclick="thucThiBaoNapTheCao()">XÁC NHẬN GỬI THẺ CÀO</button>
                     </div>
                 </div>
             </div>
@@ -641,132 +1395,187 @@
 
         <section id="view-profile" class="view-section">
             <div class="glass-card">
-                <h2 class="section-title"><svg class="svg-icon"><use href="#icon-user"></use></svg> Quản Lý Hồ Sơ</h2>
-                
+                <div class="section-heading">
+                    <h2><svg class="svg-icon"><use href="#icon-user"></use></svg> Quản Lý Hồ Sơ Cá Nhân</h2>
+                </div>
                 <div class="profile-banner">
                     <div class="avatar-upload-zone">
-                        <img id="imgBigAvatar" src="" class="avatar-huge" alt="Avatar">
-                        <label for="inpFileAvatar" class="btn-upload-cam" title="Thay đổi ảnh đại diện">
-                            <svg class="svg-icon svg-icon-sm"><use href="#icon-camera"></use></svg>
+                        <img id="imgBigAvatar" src="" class="avatar-huge" alt="Avatar User">
+                        <label for="inpFileAvatar" class="btn-upload-cam" title="Thay Ảnh Đại Diện">
+                            <svg class="svg-icon"><use href="#icon-camera"></use></svg>
                         </label>
-                        <input type="file" id="inpFileAvatar" accept="image/png, image/jpeg, image/webp" style="display: none;" onchange="xuLyTaiAnhAvatar(this)">
+                        <input type="file" id="inpFileAvatar" accept="image/*" style="display: none;" onchange="xuLyTaiAnhAvatar(this)">
                     </div>
-                    
                     <div class="profile-stats">
-                        <p>Tên hiển thị: <strong id="txtProfName" style="color:var(--accent-cyan); font-size:1.2rem;">Đang tải...</strong></p>
-                        <p>Mã định danh (UID): <strong id="txtProfUid" style="font-family:monospace;">...</strong></p>
-                        <p>Số dư hiện tại: <strong class="stat-value-large" id="txtProfBalance">0 đ</strong></p>
-                        <p>Tổng tiền đã nạp: <strong id="txtProfTotalDep" style="color:var(--status-warning-text);">0 đ</strong></p>
+                        <p>Tên hiển thị: <strong id="txtProfName" style="color:var(--accent-cyan); font-size:1.3rem;">Đang tải...</strong></p>
+                        <p>UID (Mã định danh): <strong id="txtProfUid" style="font-family:monospace; font-size:1rem; color:var(--text-secondary);">...</strong></p>
+                        <p>Số dư ví hiện tại: <strong class="stat-value-large" id="txtProfBalance">0 đ</strong></p>
+                        <p>Tổng tiền bạn đã nạp: <strong id="txtProfTotalDep" style="color:var(--status-warning-text); font-size:1.1rem;">0 đ</strong></p>
                     </div>
                 </div>
-
-                <div class="input-group" style="max-width: 400px;">
-                    <label>Cập nhật tên hiển thị:</label>
-                    <input type="text" id="inpDoiTen" class="input-control" placeholder="Nhập tên mới của bạn">
-                    <button class="btn btn-outline" style="margin-top:14px;" onclick="thucThiDoiTenUser()">Lưu Tên Mới</button>
+                <div class="input-group" style="max-width: 450px;">
+                    <label>Thay Đổi Tên Hiển Thị</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="inpDoiTen" class="input-control" placeholder="Tên mới của bạn">
+                        <button class="btn btn-outline btn-ripple" style="white-space: nowrap;" onclick="thucThiDoiTenUser()">Cập Nhật</button>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="view-history-buy" class="view-section">
             <div class="glass-card">
-                <h2 class="section-title"><svg class="svg-icon"><use href="#icon-history"></use></svg> Lịch Sử Mua Nguyên Liệu</h2>
-                <div class="table-wrapper">
+                <div class="section-heading">
+                    <h2><svg class="svg-icon"><use href="#icon-history"></use></svg> Lịch Sử Mua Tài Khoản MMO</h2>
+                </div>
+                <div class="table-wrapper" id="wrapperHistoryBuy">
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Tên Sản Phẩm</th>
-                                <th>Chi Phí</th>
-                                <th>Trạng Thái</th>
-                                <th>Dữ Liệu Nhận Được (Nick/Pass)</th>
+                                <th>Tên Sản Phẩm</th><th>Thanh Toán</th><th>Trạng Thái</th><th>Thông Tin Trả Hàng (Tài Khoản | Mật Khẩu | 2FA)</th>
                             </tr>
                         </thead>
-                        <tbody id="tblBodyHistoryBuy">
-                            </tbody>
+                        <tbody id="tblBodyHistoryBuy"></tbody>
                     </table>
+                    <div id="skeletonHistoryBuy" class="skeleton-hidden" style="padding: 0;">
+                        <div class="skeleton-table-row"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+                        <div class="skeleton-table-row"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+                        <div class="skeleton-table-row"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+                    </div>
+                    <div id="emptyHistoryBuy" class="empty-state-container skeleton-hidden">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><use href="#icon-empty-box"></use></svg>
+                        <h3>Chưa có giao dịch nào</h3>
+                        <p>Bạn chưa mua tài khoản MMO nào. Hãy khám phá cửa hàng và chọn ngay sản phẩm phù hợp!</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="view-history-buff" class="view-section">
             <div class="glass-card">
-                <h2 class="section-title"><svg class="svg-icon"><use href="#icon-rocket"></use></svg> Lịch Sử Chạy Buff Dịch Vụ</h2>
-                <div class="table-wrapper">
+                <div class="section-heading">
+                    <h2><svg class="svg-icon"><use href="#icon-rocket"></use></svg> Lịch Sử Bơm Tương Tác Dịch Vụ</h2>
+                </div>
+                <div class="table-wrapper" id="wrapperHistoryBuff">
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Gói Dịch Vụ</th>
-                                <th>Chi Phí</th>
-                                <th>Trạng Thái</th>
-                                <th>Báo Cáo Admin</th>
+                                <th>Gói Dịch Vụ Đã Đặt</th><th>Link Chạy Buff</th><th>Chi Phí</th><th>Trạng Thái Của Admin</th>
                             </tr>
                         </thead>
-                        <tbody id="tblBodyHistoryBuff">
-                            </tbody>
+                        <tbody id="tblBodyHistoryBuff"></tbody>
                     </table>
+                    <div id="skeletonHistoryBuff" class="skeleton-hidden" style="padding: 0;">
+                        <div class="skeleton-table-row"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+                        <div class="skeleton-table-row"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+                        <div class="skeleton-table-row"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+                    </div>
+                    <div id="emptyHistoryBuff" class="empty-state-container skeleton-hidden">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><use href="#icon-empty-box"></use></svg>
+                        <h3>Chưa có đơn buff nào</h3>
+                        <p>Hãy đặt đơn buff tương tác đầu tiên để tăng trưởng kênh của bạn ngay hôm nay!</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="view-history-dep" class="view-section">
             <div class="glass-card">
-                <h2 class="section-title"><svg class="svg-icon"><use href="#icon-check"></use></svg> Lịch Sử Giao Dịch Nạp Tiền</h2>
-                <div class="table-wrapper">
+                <div class="section-heading">
+                    <h2><svg class="svg-icon"><use href="#icon-check"></use></svg> Lịch Sử Giao Dịch Nạp Tiền</h2>
+                </div>
+                <div class="table-wrapper" id="wrapperHistoryDep">
                     <table class="data-table">
                         <thead>
                             <tr>
-                                <th>Phương Thức Nạp</th>
-                                <th>Chi Tiết</th>
-                                <th>Mệnh Giá</th>
-                                <th>Trạng Thái</th>
+                                <th>Hình Thức Nạp</th><th>Chi Tiết GD</th><th>Số Tiền Báo Nạp</th><th>Trạng Thái</th>
                             </tr>
                         </thead>
-                        <tbody id="tblBodyHistoryDep">
-                            </tbody>
+                        <tbody id="tblBodyHistoryDep"></tbody>
                     </table>
+                    <div id="skeletonHistoryDep" class="skeleton-hidden" style="padding: 0;">
+                        <div class="skeleton-table-row"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+                        <div class="skeleton-table-row"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+                        <div class="skeleton-table-row"><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div><div class="skeleton-line"></div></div>
+                    </div>
+                    <div id="emptyHistoryDep" class="empty-state-container skeleton-hidden">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><use href="#icon-empty-box"></use></svg>
+                        <h3>Chưa có lịch sử nạp tiền</h3>
+                        <p>Nạp tiền ngay để trải nghiệm các dịch vụ đỉnh cao với mức giá ưu đãi nhất!</p>
+                    </div>
                 </div>
             </div>
         </section>
-
     </main>
 
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav" id="mobileBottomNav">
+        <div class="mobile-bottom-nav-inner">
+            <button class="mobile-nav-item is-active" data-page="shop" onclick="xuLyChuyenTrang('shop')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <span>Cửa Hàng</span>
+            </button>
+            <button class="mobile-nav-item" data-page="deposit" onclick="xuLyChuyenTrang('deposit')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-5 14H4v-4h11v4zm3-6H4V6h14v6z"></path></svg>
+                <span>Nạp Tiền</span>
+            </button>
+            <button class="mobile-nav-item" data-page="history-buy" onclick="xuLyChuyenTrang('history-buy')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M4.93 4.93l2.83 2.83"></path><path d="M16.24 16.24l2.83 2.83"></path><path d="M2 12h4"></path><path d="M18 12h4"></path><path d="M4.93 19.07l2.83-2.83"></path><path d="M16.24 7.76l2.83-2.83"></path></svg>
+                <span>Lịch Sử</span>
+            </button>
+            <button class="mobile-nav-item" data-page="profile" onclick="xuLyChuyenTrang('profile')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>Hồ Sơ</span>
+            </button>
+        </div>
+    </nav>
+
     <footer class="app-footer">
-        <p>&copy; 2026 LNHAT MMO ULTIMATE. Đã đăng ký bản quyền.</p>
-        <p style="margin-top:6px; font-size:0.8rem;">Hệ thống phân phối tài nguyên tự động & Tương tác mạng xã hội chuẩn API quốc tế.</p>
+        <p style="font-weight: 700; color: var(--accent-cyan); margin-bottom: 8px;">&copy; 2026 LNHAT MMO ULTIMATE - SYSTEM V2.0</p>
+        <p>Hệ thống tự động hóa phân phối nguyên liệu kỹ thuật số & dịch vụ tăng tương tác đa nền tảng.</p>
     </footer>
 
     <div class="modal-container" id="modalAuthUI">
         <div class="modal-content">
+            <button class="modal-close-btn" onclick="dongKhungAuth()"><svg class="svg-icon"><use href="#icon-x"></use></svg></button>
             <div class="modal-header">
-                <h3 class="modal-title" id="lblModalAuthTitle">ĐĂNG NHẬP HỆ THỐNG</h3>
-                <p class="modal-desc">Sử dụng Email để bảo mật giao dịch</p>
+                <h3 class="modal-title" id="lblModalAuthTitle">ĐĂNG NHẬP</h3>
+                <p class="modal-desc">Vui lòng đăng nhập để thực hiện giao dịch</p>
             </div>
-            
             <div class="input-group">
-                <label>Địa chỉ Email</label>
-                <input type="email" id="inpAuthEmail" class="input-control" placeholder="vidu@gmail.com">
+                <label>Địa chỉ Email (Google)</label>
+                <input type="email" id="inpAuthEmail" class="input-control" placeholder="name@gmail.com">
             </div>
             <div class="input-group">
                 <label>Mật Khẩu</label>
-                <input type="password" id="inpAuthPass" class="input-control" placeholder="••••••••">
+                <input type="password" id="inpAuthPass" class="input-control" placeholder="Bảo mật tối thiểu 6 ký tự">
             </div>
-            
-            <div id="wrapperModalBtns" style="margin-top: 30px; display: flex; flex-direction: column; gap: 12px;">
-                </div>
-            
-            <button class="btn btn-outline" style="width:100%; margin-top: 12px; border-color:var(--glass-border); color:var(--text-muted);" onclick="dongKhungAuth()">Hủy / Đóng</button>
+            <div id="wrapperModalBtns" style="margin-top: 35px; display: flex; flex-direction: column; gap: 14px;"></div>
+        </div>
+    </div>
+
+    <div class="modal-container" id="modalBuffOrderUI">
+        <div class="modal-content" style="max-width: 550px;">
+            <button class="modal-close-btn" onclick="dongKhungMuaBuff()"><svg class="svg-icon"><use href="#icon-x"></use></svg></button>
+            <div class="modal-header">
+                <h3 class="modal-title">TẠO ĐƠN BUFF TƯƠNG TÁC</h3>
+                <p class="modal-desc" style="color: var(--status-warning-text);">Vui lòng nhập đúng Link cần chạy. Sai link không hỗ trợ hoàn tiền!</p>
+            </div>
+            <div class="buff-pack-info">
+                <p>Tên dịch vụ: <strong id="lblBuffName" style="color: var(--accent-cyan);">Loading...</strong></p>
+                <p>Thanh toán: <strong id="lblBuffPrice" style="color: var(--status-success-text); font-size:1.2rem;">0 đ</strong></p>
+            </div>
+            <div class="input-group">
+                <label>Nhập Link Cần Chạy Buff (Bắt buộc):</label>
+                <input type="url" id="inpBuffTargetLink" class="input-control" placeholder="Ví dụ: https://www.tiktok.com/@username/video/123...">
+            </div>
+            <button class="btn btn-primary btn-ripple" style="width: 100%; padding: 14px; margin-top: 20px; font-size: 1rem;" onclick="xacNhanMuaBuff()">
+                XÁC NHẬN THANH TOÁN & ĐẶT ĐƠN
+            </button>
         </div>
     </div>
 
     <script>
-        /**
-         * LNHAT MMO - CORE SYSTEM JS
-         * Version: 2.0 Ultimate
-         */
-
-        // ------------------------------------------------------------------------
-        // 5.1 CẤU HÌNH FIREBASE CHÍNH CHỦ CỦA LNHAT
-        // ------------------------------------------------------------------------
         const firebaseConfig = {
             apiKey: "AIzaSyB43TOrSL1I1HxJGQX32GDaE7vnXvjVUWg",
             authDomain: "mmo-lnhat.firebaseapp.com",
@@ -777,69 +1586,74 @@
             appId: "1:1001067099891:web:1d31809809f59bea082986",
             measurementId: "G-W0T0Y2GF0Q"
         };
-
-        // Khởi tạo các module
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
         const auth = firebase.auth();
         const database = firebase.database();
         const storage = firebase.storage();
-
         let currentUserId = null;
 
-        // ------------------------------------------------------------------------
-        // 5.2 HỆ THỐNG TOAST NOTIFICATION (THAY THẾ ALERT)
-        // ------------------------------------------------------------------------
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const toast = document.createElement('div');
             toast.className = `toast-item toast-${type}`;
-            
             let iconSvg = '';
-            if(type === 'success') iconSvg = '<svg class="svg-icon toast-icon"><use href="#icon-check"></use></svg>';
-            else if(type === 'error') iconSvg = '<svg class="svg-icon toast-icon"><use href="#icon-x"></use></svg>';
+            if (type === 'success') iconSvg = '<svg class="svg-icon toast-icon"><use href="#icon-check"></use></svg>';
+            else if (type === 'error') iconSvg = '<svg class="svg-icon toast-icon"><use href="#icon-x"></use></svg>';
             else iconSvg = '<svg class="svg-icon toast-icon"><use href="#icon-alert"></use></svg>';
-
-            toast.innerHTML = `
-                ${iconSvg}
-                <span>${message}</span>
-            `;
-            
+            toast.innerHTML = `${iconSvg}<span>${message}</span>`;
             container.appendChild(toast);
-            
-            // Xóa toast sau 3.5 giây
             setTimeout(() => {
                 toast.style.animation = 'fadeOutRight 0.4s forwards';
-                setTimeout(() => { if(container.contains(toast)) container.removeChild(toast); }, 400);
+                setTimeout(() => { if (container.contains(toast)) container.removeChild(toast); }, 400);
             }, 3500);
         }
 
-        // ------------------------------------------------------------------------
-        // 5.3 DATA KHO HÀNG (GIẢ LẬP ĐỂ RENDER GIAO DIỆN)
-        // ------------------------------------------------------------------------
         const KHO_DATA = {
             taiKhoan: [
-                { id: "acc_gmail_co", cat: "Gmail Cổ 2015", name: "Gmail Trắng 2015-2018 Bao Trâu", desc: "Đã ngâm IP VN lâu năm, reg bằng Phone thật. Chuyên dùng reg tài khoản, lên camp Ads. Bảo hành sai pass 1 đổi 1.", price: 15000, type: "acc" },
-                { id: "acc_via_xm", cat: "Via Facebook", name: "Via Cổ Việt XMDT Đã Xác Minh", desc: "Tài khoản có tích xanh xác minh danh tính. Đã kháng về 24h, bao trâu bò, bao back 7 ngày. Định dạng UID|Pass|2FA.", price: 85000, type: "acc" },
-                { id: "acc_clone_fb", cat: "Clone Facebook", name: "Clone FB Random Avatar Mới", desc: "Clone vừa reg xong, có avatar ngẫu nhiên. Thích hợp mua về spam link, seeding bài viết số lượng lớn.", price: 2500, type: "acc" },
-                { id: "acc_proxy_v4", cat: "Mạng Proxy", name: "Proxy IPv4 VN Private (30 Ngày)", desc: "Proxy 1-1 không dùng chung. Băng thông không giới hạn, IP siêu sạch chuyên nuôi Via.", price: 35000, type: "acc" },
-                { id: "acc_tk_tiktok", cat: "TikTok", name: "Kênh TikTok 1K Follow (Mở Live)", desc: "Kênh trắng ngâm lâu, đã có sẵn 1k follow thật, đủ điều kiện mở Live và gắn giỏ hàng TikTok Shop.", price: 120000, type: "acc" }
+                { id: "acc_fb_via", cat: "Via Facebook", platform: "facebook", name: "Via Cổ Việt Nam XMDT",
+                    desc: "Đã xác minh danh tính, bao trâu, bao back 7 ngày. Hỗ trợ chạy Ads mượt mà.", price: 85000,
+                    type: "acc" },
+                { id: "acc_fb_clone", cat: "Clone Facebook", platform: "facebook", name: "Clone FB Random Avatar",
+                    desc: "Reg tay, có ảnh đại diện, chuyên dùng để buff sub chéo, seeding nhóm.", price: 2500, type: "acc" },
+                { id: "acc_gg_mail", cat: "Gmail", platform: "google", name: "Gmail Cổ 2018 (Chưa ngâm)",
+                    desc: "Gmail trắng siêu khỏe, bao live khi tạo kênh Youtube hoặc đăng ký dịch vụ.", price: 16000,
+                    type: "acc" },
+                { id: "acc_tt_acc", cat: "TikTok", platform: "tiktok", name: "Acc TikTok Mở Live Đủ 1K FL",
+                    desc: "Nick nuôi tay trên điện thoại thật, sẵn 1k follow, bật được Live Shop.", price: 150000,
+                    type: "acc" }
             ],
             buff: [
-                { id: "buff_fl_tt", cat: "Buff TikTok", name: "Tăng 1.000 Follower TikTok", desc: "Follower từ người dùng thật VN. Tốc độ lên từ từ an toàn, bảo hành không tụt trong 30 ngày.", price: 45000, type: "buff" },
-                { id: "buff_like_fb", cat: "Buff Facebook", name: "Tăng 1.000 Like Bài Viết FB", desc: "Like lên ngay lập tức sau 5 phút. Nick like có avatar, có info chuẩn VN. Tăng độ uy tín bán hàng.", price: 15000, type: "buff" },
-                { id: "buff_sub_yt", cat: "Buff Youtube", name: "Tăng 1.000 Sub Youtube BKT", desc: "Sub chất lượng cao, không bị Youtube quét tụt. Hỗ trợ đẩy kênh đạt chuẩn Bật Kiếm Tiền nhanh chóng.", price: 350000, type: "buff" },
-                { id: "buff_view_tt", cat: "Buff TikTok", name: "Tăng 10.000 View Video TikTok", desc: "Đẩy xu hướng video, tăng lượng người xem tự nhiên. View lên siêu tốc trong vòng 10 phút.", price: 8000, type: "buff" }
+                { id: "buff_fb_like", cat: "Buff Facebook", platform: "facebook", name: "Like Bài Viết VN (Cực Nhanh)",
+                    desc: "Tăng 1.000 Like cảm xúc cho bài viết, ảnh. User thật Việt Nam.", price: 15000, type: "buff" },
+                { id: "buff_fb_sub", cat: "Buff Facebook", platform: "facebook",
+                    name: "Follow / Sub Cá Nhân [11đ/1]", desc: "Tăng 1.000 Follow cho Profile hoặc Page Pro5. Lên sau 15p.",
+                    price: 11000, type: "buff" },
+                { id: "buff_tt_view", cat: "Buff TikTok", platform: "tiktok", name: "View Việt Nam [1đ/100 View]",
+                    desc: "Tăng 10.000 View cho Video lên xu hướng. Siêu tốc độ, bao tụt.", price: 100, type: "buff" },
+                { id: "buff_tt_fl", cat: "Buff TikTok", platform: "tiktok",
+                    name: "Follow TikTok Chất Lượng [45đ/1]",
+                    desc: "Tăng 1.000 Follow nuôi kênh bán hàng. Cam kết bảo hành 1 tháng.", price: 45000, type: "buff" },
+                { id: "buff_yt_sub", cat: "Buff Youtube", platform: "youtube", name: "Sub Youtube BKT Không Tụt",
+                    desc: "Tăng 1.000 Subscriber thật, đáp ứng điều kiện bật kiếm tiền Youtube.", price: 380000,
+                type: "buff" }
             ]
         };
 
-        // Render Data ra lưới HTML
-        function renderKhoHangVaoUI() {
-            const renderFn = (arrData, targetId) => {
+        function renderKhoHangVaoUI(filterPlatformAcc = 'all', filterPlatformBuff = 'all') {
+            const renderFn = (arrData, targetId, platformFilter) => {
                 const container = document.getElementById(targetId);
                 container.innerHTML = "";
-                arrData.forEach(item => {
+                const filteredData = platformFilter === 'all' ? arrData : arrData.filter(item => item
+                    .platform === platformFilter);
+                if (filteredData.length === 0) {
+                    container.innerHTML =
+                        `<p style="color:var(--text-muted); font-style:italic; grid-column: 1/-1; text-align:center; padding:30px;">Hiện chưa có sản phẩm nào thuộc nền tảng này.</p>`;
+                    return;
+                }
+                filteredData.forEach(item => {
+                    const buyAction = item.type === 'buff' ?
+                        `moKhungMuaBuff('${item.id}', '${item.name}', ${item.price}, '${item.type}')` :
+                        `xuLyMuaAccTrucTiep('${item.id}', '${item.name}', ${item.price}, '${item.type}')`;
                     container.innerHTML += `
                         <div class="product-item">
                             <span class="prod-badge">${item.cat}</span>
@@ -847,26 +1661,43 @@
                             <p class="prod-desc">${item.desc}</p>
                             <div class="prod-footer">
                                 <span class="prod-price">${item.price.toLocaleString('vi-VN')} đ</span>
-                                <button class="btn btn-primary" onclick="xuLyMuaHeThong('${item.id}', '${item.name}', ${item.price}, '${item.type}')">
-                                    <svg class="svg-icon svg-icon-sm"><use href="#icon-shop"></use></svg> Mua
+                                <button class="btn btn-primary btn-ripple" onclick="${buyAction}">
+                                    <svg class="svg-icon svg-icon-sm"><use href="#icon-${item.type === 'buff' ? 'rocket' : 'shop'}"></use></svg> Mua Ngay
                                 </button>
                             </div>
                         </div>
                     `;
                 });
             };
-            renderFn(KHO_DATA.taiKhoan, 'containerGridAcc');
-            renderFn(KHO_DATA.buff, 'containerGridBuff');
+            renderFn(KHO_DATA.taiKhoan, 'containerGridAcc', filterPlatformAcc);
+            renderFn(KHO_DATA.buff, 'containerGridBuff', filterPlatformBuff);
+            document.getElementById('skeletonGridAcc').classList.add('skeleton-hidden');
+            document.getElementById('skeletonGridBuff').classList.add('skeleton-hidden');
         }
 
-        // ------------------------------------------------------------------------
-        // 5.4 UI CONTROLS (TABS, SIDEBAR, MODALS)
-        // ------------------------------------------------------------------------
+        let currentFilterAcc = 'all';
+        let currentFilterBuff = 'all';
+
+        function locSanPham(type, platform) {
+            document.querySelectorAll(`[id^='flt-${type}-']`).forEach(btn => btn.classList.remove('is-active'));
+            document.getElementById(`flt-${type}-${platform}`).classList.add('is-active');
+            if (type === 'acc') currentFilterAcc = platform;
+            if (type === 'buff') currentFilterBuff = platform;
+            const skelAcc = document.getElementById('skeletonGridAcc');
+            const skelBuff = document.getElementById('skeletonGridBuff');
+            if (type === 'acc') { skelAcc.classList.remove('skeleton-hidden');
+                document.getElementById('containerGridAcc').innerHTML = ''; }
+            if (type === 'buff') { skelBuff.classList.remove('skeleton-hidden');
+                document.getElementById('containerGridBuff').innerHTML = ''; }
+            setTimeout(() => { renderKhoHangVaoUI(currentFilterAcc, currentFilterBuff); }, 400);
+        }
+
         function moMenuSidebar() {
             document.getElementById('uiSidebar').classList.add('is-active');
             document.getElementById('uiBackdrop').classList.add('is-active');
             document.getElementById('btnHamburger').classList.add('is-active');
         }
+
         function dongMenuSidebar() {
             document.getElementById('uiSidebar').classList.remove('is-active');
             document.getElementById('uiBackdrop').classList.remove('is-active');
@@ -874,228 +1705,231 @@
         }
 
         function xuLyChuyenTrang(pageId) {
-            // Ẩn tất cả các view
+            if (!pageId) return;
             document.querySelectorAll('.view-section').forEach(v => v.classList.remove('is-active'));
-            // Tắt active ở menu
             document.querySelectorAll('.nav-item').forEach(m => m.classList.remove('is-active'));
-            
-            // Bật view được yêu cầu
-            document.getElementById('view-' + pageId).classList.add('is-active');
-            
-            // Tìm và bật active menu tương ứng (nếu có)
+            document.querySelectorAll('.mobile-nav-item').forEach(m => m.classList.remove('is-active'));
+            const targetView = document.getElementById('view-' + pageId);
+            if (targetView) targetView.classList.add('is-active');
             const targetNav = document.getElementById('nav-' + pageId);
-            if(targetNav) targetNav.classList.add('is-active');
-            
-            // Đóng sidebar nếu đang mở trên điện thoại
+            if (targetNav) targetNav.classList.add('is-active');
+            const mobileNavItem = document.querySelector(`.mobile-nav-item[data-page="${pageId}"]`);
+            if (mobileNavItem) mobileNavItem.classList.add('is-active');
+            if (location.hash !== '#' + pageId) {
+                history.pushState(null, null, '#' + pageId);
+            }
             dongMenuSidebar();
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
         }
+
+        window.addEventListener('hashchange', function() {
+            const hash = location.hash.replace('#', '');
+            if (hash && document.getElementById('view-' + hash)) {
+                xuLyChuyenTrang(hash);
+            }
+        });
+
+        window.addEventListener('popstate', function() {
+            const hash = location.hash.replace('#', '');
+            if (hash && document.getElementById('view-' + hash)) {
+                xuLyChuyenTrang(hash);
+            } else if (!hash) {
+                xuLyChuyenTrang('welcome');
+            }
+        });
 
         function chuyenTabNapTien(tabType, btnObj) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('is-active'));
             document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('is-active'));
-            
             btnObj.classList.add('is-active');
             document.getElementById('tab-pane-' + tabType).classList.add('is-active');
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => showToast("Đã chép vào bộ nhớ!", "success"));
         }
 
         function moKhungAuth(mode) {
             document.getElementById('modalAuthUI').classList.add('is-active');
             const wrap = document.getElementById('wrapperModalBtns');
             const title = document.getElementById('lblModalAuthTitle');
-            
-            if(mode === 'login') {
-                title.innerText = "ĐĂNG NHẬP HỆ THỐNG";
-                wrap.innerHTML = `<button class="btn btn-primary" style="padding:14px; font-size:1rem;" onclick="thucThiAuth('login')">XÁC NHẬN ĐĂNG NHẬP</button>`;
+            if (mode === 'login') {
+                title.innerText = "ĐĂNG NHẬP VÀO HỆ THỐNG";
+                wrap.innerHTML =
+                    `<button class="btn btn-primary btn-ripple" style="padding:14px; font-size:1rem;" onclick="thucThiAuth('login')">TIẾN HÀNH ĐĂNG NHẬP</button>`;
             } else {
-                title.innerText = "ĐĂNG KÝ TÀI KHOẢN";
-                wrap.innerHTML = `<button class="btn btn-primary" style="background:linear-gradient(135deg, #10b981, #059669); padding:14px; font-size:1rem;" onclick="thucThiAuth('register')">ĐĂNG KÝ HỘI VIÊN</button>`;
+                title.innerText = "TẠO TÀI KHOẢN MỚI";
+                wrap.innerHTML =
+                    `<button class="btn btn-primary btn-ripple" style="background:linear-gradient(135deg, #10b981, #059669); padding:14px; font-size:1rem;" onclick="thucThiAuth('register')">ĐĂNG KÝ HỘI VIÊN</button>`;
             }
         }
-        function dongKhungAuth() {
-            document.getElementById('modalAuthUI').classList.remove('is-active');
-            document.getElementById('inpAuthEmail').value = "";
-            document.getElementById('inpAuthPass').value = "";
-        }
 
-        // Sao chép nội dung vào Clipboard
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showToast("Đã copy dữ liệu vào khay nhớ tạm!", "success");
-            }).catch(err => {
-                showToast("Không thể copy: " + err, "error");
-            });
-        }
+        function dongKhungAuth() { document.getElementById('modalAuthUI').classList.remove('is-active'); }
 
-        // ------------------------------------------------------------------------
-        // 5.5 AUTHENTICATION ENGINE (LÕI XỬ LÝ ĐĂNG NHẬP BẤT TỬ)
-        // ------------------------------------------------------------------------
-        
-        // Lắng nghe sự thay đổi trạng thái user
         auth.onAuthStateChanged(user => {
             if (user) {
                 currentUserId = user.uid;
-                
-                // Ẩn nhóm nút login, hiện info user
                 document.getElementById('headerAuthBtns').style.display = 'none';
                 document.getElementById('headerUserBtns').style.display = 'flex';
-                
-                // Cấu hình QR Code Nạp Tiền theo UID thực tế
-                document.getElementById('imgRenderQrBank').src = `https://img.vietqr.io/image/mbbank-0987654321-compact.png?amount=0&addInfo=LNHATMMO%20${user.uid}`;
+                document.getElementById('imgRenderQrBank').src =
+                    `https://img.vietqr.io/image/mbbank-0987654321-compact.png?amount=0&addInfo=LNHATMMO%20${user.uid}`;
                 document.getElementById('txtRenderMemo').innerText = `LNHATMMO ${user.uid}`;
-                
-                // Kích hoạt đồng bộ DB
                 batDauDongBoDuLieu(user.uid);
-                
-                // CỰC KỲ QUAN TRỌNG ĐỂ FIX LỖI BLANK SCREEN:
-                // Nếu đang ở màn hình welcome, chuyển thẳng vào trang Shop
-                const welcomeView = document.getElementById('view-welcome');
-                if(welcomeView.classList.contains('is-active')) {
+                if (document.getElementById('view-welcome').classList.contains('is-active')) {
                     xuLyChuyenTrang('shop');
                 }
-                
-                dongKhungAuth(); // Đóng modal nếu đang mở
+                dongKhungAuth();
             } else {
                 currentUserId = null;
-                // Hiện nút login, ẩn info
                 document.getElementById('headerAuthBtns').style.display = 'flex';
                 document.getElementById('headerUserBtns').style.display = 'none';
-                
-                // Chuyển về màn welcome
                 xuLyChuyenTrang('welcome');
             }
         });
 
-        // Hàm Xử lý Auth (Đăng nhập/Đăng ký)
         function thucThiAuth(action) {
             const email = document.getElementById('inpAuthEmail').value.trim();
             const pass = document.getElementById('inpAuthPass').value.trim();
-
-            if(!email || !pass) {
-                showToast("Vui lòng nhập đầy đủ Email và Mật khẩu!", "warning");
-                return;
-            }
-
-            if(action === 'register') {
+            if (!email || !pass) return showToast("Bro chưa nhập đủ thông tin kìa!", "warning");
+            if (action === 'register') {
                 auth.createUserWithEmailAndPassword(email, pass).then(res => {
-                    const uid = res.user.uid;
-                    // Khởi tạo Database cho User mới
-                    database.ref('users/' + uid).set({
-                        uid: uid,
+                    database.ref('users/' + res.user.uid).set({
+                        uid: res.user.uid,
                         email: email,
-                        username: "HộiViên_" + uid.substring(0, 5),
+                        username: "Khach_" + res.user.uid.substring(0, 5),
                         balance: 0,
                         tong_tien_da_nap: 0,
-                        avatarUrl: `https://api.dicebear.com/7.x/initials/svg?seed=${email}&backgroundColor=0ea5e9`
-                    }).then(() => {
-                        showToast("🎉 Chúc mừng! Tạo tài khoản thành công.", "success");
-                    });
-                }).catch(err => {
-                    if(err.code === 'auth/email-already-in-use') showToast("Email này đã được đăng ký!", "error");
-                    else showToast("Lỗi hệ thống: " + err.message, "error");
-                });
+                        avatarUrl: `https://api.dicebear.com/7.x/initials/svg?seed=${email}`
+                    }).then(() => showToast("Đăng ký thành công!", "success"));
+                }).catch(err => showToast("Lỗi: " + err.message, "error"));
             } else {
                 auth.signInWithEmailAndPassword(email, pass).then(() => {
-                    showToast("⚡ Đăng nhập thành công! Đang tải dữ liệu...", "success");
-                }).catch(err => {
-                    showToast("❌ Sai Email hoặc Mật khẩu, vui lòng thử lại!", "error");
-                });
+                    showToast("Đăng nhập thành công!", "success");
+                }).catch(err => showToast("Sai tài khoản hoặc mật khẩu!", "error"));
             }
         }
 
-        // Đăng xuất an toàn
         function xuLyDangXuatAnToan() {
-            if(confirm("Bro chắc chắn muốn thoát khỏi hệ thống?")) {
-                auth.signOut().then(() => {
-                    showToast("Đã đăng xuất an toàn!", "success");
-                    // setTimeout(() => location.reload(), 1000); // Reload sạch bộ nhớ
-                }).catch(err => showToast("Lỗi: " + err.message, "error"));
+            if (confirm("Xác nhận thoát khỏi hệ thống?")) {
+                auth.signOut().then(() => showToast("Đã thoát!", "success"));
             }
         }
 
-        // ------------------------------------------------------------------------
-        // 5.6 REALTIME DATABASE SYNC ENGINE
-        // ------------------------------------------------------------------------
         function batDauDongBoDuLieu(uid) {
-            
-            // 1. Đồng bộ Profile & Số dư
             database.ref('users/' + uid).on('value', snapshot => {
                 const data = snapshot.val() || {};
-                const balance = data.balance || 0;
-                const totalDep = data.tong_tien_da_nap || 0;
+                const bal = data.balance || 0;
+                const tot = data.tong_tien_da_nap || 0;
                 const uname = data.username || "Thành viên";
                 const avt = data.avatarUrl || "https://api.dicebear.com/7.x/initials/svg?seed=L";
-
-                // Update Header
-                document.getElementById('lblTopBalance').innerHTML = `<svg class="svg-icon svg-icon-sm"><use href="#icon-wallet"></use></svg> ${balance.toLocaleString('vi-VN')} đ`;
+                document.getElementById('lblTopBalance').innerHTML =
+                    `<svg class="svg-icon svg-icon-sm"><use href="#icon-wallet"></use></svg> ${bal.toLocaleString('vi-VN')} đ`;
                 document.getElementById('imgTopAvatar').src = avt;
-                
-                // Update Profile Page
                 document.getElementById('imgBigAvatar').src = avt;
                 document.getElementById('txtProfName').innerText = uname;
                 document.getElementById('txtProfUid').innerText = uid;
-                document.getElementById('txtProfBalance').innerText = balance.toLocaleString('vi-VN') + " đ";
-                document.getElementById('txtProfTotalDep').innerText = totalDep.toLocaleString('vi-VN') + " đ";
+                document.getElementById('txtProfBalance').innerText = bal.toLocaleString('vi-VN') + " đ";
+                document.getElementById('txtProfTotalDep').innerText = tot.toLocaleString('vi-VN') + " đ";
             });
 
-            // 2. Đồng bộ Lịch Sử Đơn Hàng (Buy & Buff)
+            function showSkeleton(tableId, skelId, emptyId) {
+                document.getElementById(skelId).classList.remove('skeleton-hidden');
+                document.getElementById(emptyId).classList.add('skeleton-hidden');
+                const tbody = document.getElementById(tableId);
+                if (tbody) tbody.innerHTML = '';
+            }
+
+            function hideSkeletonAndShowEmpty(tableId, skelId, emptyId, hasData) {
+                document.getElementById(skelId).classList.add('skeleton-hidden');
+                if (hasData) {
+                    document.getElementById(emptyId).classList.add('skeleton-hidden');
+                } else {
+                    document.getElementById(emptyId).classList.remove('skeleton-hidden');
+                    const tbody = document.getElementById(tableId);
+                    if (tbody) tbody.innerHTML = '';
+                }
+            }
+
             database.ref('don_hang_cho_duyet').orderByChild('uid').equalTo(uid).on('value', snapshot => {
                 const tbBuy = document.getElementById('tblBodyHistoryBuy');
                 const tbBuff = document.getElementById('tblBodyHistoryBuff');
-                tbBuy.innerHTML = ""; tbBuff.innerHTML = "";
-                
                 const data = snapshot.val();
-                if(data) {
-                    const keys = Object.keys(data).reverse(); // Mới nhất lên trên
-                    keys.forEach(key => {
-                        const item = data[key];
-                        
-                        // Badge Trạng thái
-                        let stBadge = "";
-                        if(item.status === "Hoàn Thành") stBadge = `<span class="badge-status badge-success"><svg class="svg-icon svg-icon-sm"><use href="#icon-check"></use></svg> Hoàn Thành</span>`;
-                        else stBadge = `<span class="badge-status badge-warning"><svg class="svg-icon svg-icon-sm"><use href="#icon-alert"></use></svg> Chờ Admin</span>`;
-                        
-                        // Khối dữ liệu
-                        let resData = item.dataGiao 
-                            ? `<div class="copy-box" onclick="copyText('${item.dataGiao.replace(/'/g, "\\'")}')" title="Bấm để Copy">${item.dataGiao}</div>` 
-                            : `<span style="color:var(--text-muted); font-style:italic;">Đang xử lý xuất kho...</span>`;
-                        
-                        const rowStr = `
-                            <tr>
-                                <td><strong>${item.itemName}</strong></td>
-                                <td style="color:var(--accent-cyan); font-weight:700;">${item.price.toLocaleString('vi-VN')} đ</td>
-                                <td>${stBadge}</td>
-                                <td>${resData}</td>
-                            </tr>
-                        `;
-                        
-                        if(item.type === "buff") tbBuff.innerHTML += rowStr;
-                        else tbBuy.innerHTML += rowStr;
-                    });
+                const hasBuyData = data && Object.values(data).some(item => item.type !== "buff");
+                const hasBuffData = data && Object.values(data).some(item => item.type === "buff");
+
+                if (!data || Object.keys(data).length === 0) {
+                    showSkeleton('tblBodyHistoryBuy', 'skeletonHistoryBuy', 'emptyHistoryBuy');
+                    showSkeleton('tblBodyHistoryBuff', 'skeletonHistoryBuff', 'emptyHistoryBuff');
+                    setTimeout(() => {
+                        hideSkeletonAndShowEmpty('tblBodyHistoryBuy', 'skeletonHistoryBuy', 'emptyHistoryBuy',
+                            false);
+                        hideSkeletonAndShowEmpty('tblBodyHistoryBuff', 'skeletonHistoryBuff',
+                            'emptyHistoryBuff', false);
+                    }, 500);
+                    return;
                 }
+
+                showSkeleton('tblBodyHistoryBuy', 'skeletonHistoryBuy', 'emptyHistoryBuy');
+                showSkeleton('tblBodyHistoryBuff', 'skeletonHistoryBuff', 'emptyHistoryBuff');
+
+                setTimeout(() => {
+                    tbBuy.innerHTML = "";
+                    tbBuff.innerHTML = "";
+                    Object.keys(data).reverse().forEach(key => {
+                        const item = data[key];
+                        let stBadge = item.status === "Hoàn Thành" ?
+                            `<span class="badge-status badge-success"><svg class="svg-icon svg-icon-sm"><use href="#icon-check"></use></svg> Hoàn Thành</span>` :
+                            `<span class="badge-status badge-warning"><svg class="svg-icon svg-icon-sm"><use href="#icon-alert"></use></svg> Đang Chạy</span>`;
+                        if (item.type === "buff") {
+                            tbBuff.innerHTML += `
+                                <tr>
+                                    <td><strong>${item.itemName}</strong></td>
+                                    <td><a href="${item.targetLink}" target="_blank" style="color:var(--accent-cyan); text-decoration:underline;">Xem Link</a></td>
+                                    <td style="color:var(--status-warning-text); font-weight:700;">${item.price.toLocaleString('vi-VN')} đ</td>
+                                    <td>${stBadge} <div style="margin-top:6px; font-size:0.85rem; color:var(--text-muted);">${item.dataGiao || 'Admin đang xử lý...'}</div></td>
+                                </tr>
+                            `;
+                        } else {
+                            let resData = item.dataGiao ?
+                                `<div class="copy-box" onclick="copyText('${item.dataGiao}')">Copy: ${item.dataGiao.substring(0, 20)}...</div>` :
+                                `<span style="color:var(--text-muted);">Đang xuất kho...</span>`;
+                            tbBuy.innerHTML += `
+                                <tr>
+                                    <td><strong>${item.itemName}</strong></td>
+                                    <td style="color:var(--status-warning-text); font-weight:700;">${item.price.toLocaleString('vi-VN')} đ</td>
+                                    <td>${stBadge}</td>
+                                    <td>${resData}</td>
+                                </tr>
+                            `;
+                        }
+                    });
+                    hideSkeletonAndShowEmpty('tblBodyHistoryBuy', 'skeletonHistoryBuy', 'emptyHistoryBuy', hasBuyData);
+                    hideSkeletonAndShowEmpty('tblBodyHistoryBuff', 'skeletonHistoryBuff', 'emptyHistoryBuff',
+                        hasBuffData);
+                }, 500);
             });
 
-            // 3. Đồng bộ Lịch Sử Nạp Tiền
             database.ref('nap_tien_cho_duyet').orderByChild('uid').equalTo(uid).on('value', snapshot => {
                 const tbDep = document.getElementById('tblBodyHistoryDep');
-                tbDep.innerHTML = "";
-                
                 const data = snapshot.val();
-                if(data) {
-                    const keys = Object.keys(data).reverse();
-                    keys.forEach(key => {
+                if (!data || Object.keys(data).length === 0) {
+                    showSkeleton('tblBodyHistoryDep', 'skeletonHistoryDep', 'emptyHistoryDep');
+                    setTimeout(() => {
+                        hideSkeletonAndShowEmpty('tblBodyHistoryDep', 'skeletonHistoryDep',
+                            'emptyHistoryDep', false);
+                    }, 500);
+                    return;
+                }
+                showSkeleton('tblBodyHistoryDep', 'skeletonHistoryDep', 'emptyHistoryDep');
+                setTimeout(() => {
+                    tbDep.innerHTML = "";
+                    Object.keys(data).reverse().forEach(key => {
                         const item = data[key];
-                        
-                        // Badge
-                        let stBadge = item.status === "Hoàn Thành" 
-                            ? `<span class="badge-status badge-success">Thành Công</span>` 
-                            : `<span class="badge-status badge-warning">Chờ Duyệt</span>`;
-                        
-                        // Details
-                        let detStr = item.type === "BANK" 
-                            ? `Chuyển Khoản Auto` 
-                            : `Thẻ: <strong style="color:var(--accent-blue)">${item.cardType}</strong><br>Seri: ${item.seri}`;
-                        
+                        let stBadge = item.status === "Hoàn Thành" ?
+                            `<span class="badge-status badge-success">Thành Công</span>` :
+                            `<span class="badge-status badge-warning">Chờ Duyệt</span>`;
+                        let detStr = item.type === "BANK" ? `Auto Bank` :
+                            `Thẻ ${item.cardType} | Seri: ${item.seri}`;
                         tbDep.innerHTML += `
                             <tr>
                                 <td><strong style="color:var(--accent-cyan);">${item.type}</strong></td>
@@ -1105,119 +1939,178 @@
                             </tr>
                         `;
                     });
-                }
+                    hideSkeletonAndShowEmpty('tblBodyHistoryDep', 'skeletonHistoryDep', 'emptyHistoryDep', true);
+                }, 500);
             });
         }
 
-        // ------------------------------------------------------------------------
-        // 5.7 CÁC HÀM XỬ LÝ CHỨC NĂNG (GHI DỮ LIỆU)
-        // ------------------------------------------------------------------------
-        
-        // Đổi Tên Hiển Thị
         function thucThiDoiTenUser() {
             const newName = document.getElementById('inpDoiTen').value.trim();
-            if(!newName) return showToast("Bro chưa nhập tên mới kìa!", "warning");
-            
+            if (!newName) return showToast("Bro quên nhập tên rồi!", "warning");
             database.ref('users/' + currentUserId + '/username').set(newName).then(() => {
-                showToast("⚡ Đã cập nhật Tên mới thành công!", "success");
+                showToast("Cập nhật Tên thành công!", "success");
                 document.getElementById('inpDoiTen').value = "";
-            }).catch(err => showToast("Lỗi cập nhật: " + err, "error"));
+            });
         }
 
-        // Upload Avatar thật lên Storage
-        function xuLyTaiAnhAvatar(inputElement) {
-            if(!inputElement.files || !inputElement.files[0]) return;
-            const file = inputElement.files[0];
-            
-            // Giới hạn 2MB
-            if(file.size > 2 * 1024 * 1024) return showToast("Ảnh quá nặng! Vui lòng chọn ảnh dưới 2MB.", "warning");
-            
-            showToast("⏳ Hệ thống đang upload ảnh, vui lòng không tắt trang...", "warning");
-            const storageRef = storage.ref('avatars_pro/' + currentUserId);
-            
-            storageRef.put(file).then(snapshot => {
-                storageRef.getDownloadURL().then(url => {
+        function xuLyTaiAnhAvatar(input) {
+            if (!input.files[0]) return;
+            const file = input.files[0];
+            showToast("Đang tải ảnh lên hệ thống an toàn...", "warning");
+            const ref = storage.ref('avatars_premium/' + currentUserId);
+            ref.put(file).then(() => {
+                ref.getDownloadURL().then(url => {
                     database.ref('users/' + currentUserId + '/avatarUrl').set(url).then(() => {
-                        showToast("🎉 Cập nhật Ảnh Đại Diện thành công!", "success");
+                        showToast("Đã thay Avatar mới đỉnh của chóp!", "success");
                     });
                 });
-            }).catch(err => showToast("❌ Lỗi upload: " + err.message, "error"));
+            }).catch(err => showToast("Lỗi upload: " + err.message, "error"));
         }
 
-        // Gửi Lệnh Nạp Bank
         function thucThiBaoNapBank() {
-            const amount = parseInt(document.getElementById('inpTienBank').value);
-            if(!amount || amount < 10000) return showToast("Vui lòng nhập số tiền hợp lệ (tối thiểu 10.000đ)", "warning");
-            
-            const reqRef = database.ref('nap_tien_cho_duyet').push();
-            reqRef.set({
-                id: reqRef.key, uid: currentUserId, type: "BANK", amount: amount, status: "Chờ Duyệt", time: Date.now()
+            const amt = parseInt(document.getElementById('inpTienBank').value);
+            if (!amt || amt < 10000) return showToast("Nhập số tiền hợp lệ (từ 10k trở lên)!", "error");
+            database.ref('nap_tien_cho_duyet').push({
+                uid: currentUserId,
+                type: "BANK",
+                amount: amt,
+                status: "Chờ Duyệt",
+                time: Date.now()
             }).then(() => {
-                showToast("🚀 Đã báo nạp Bank thành công! Admin sẽ duyệt sau vài phút.", "success");
+                showToast("Gửi thông báo nạp thành công!", "success");
                 document.getElementById('inpTienBank').value = "";
-                xuLyChuyenTrang('history-dep'); // Chuyển sang xem lịch sử
-            }).catch(err => showToast("Lỗi mạng: " + err.message, "error"));
+                xuLyChuyenTrang('history-dep');
+            });
         }
 
-        // Gửi Lệnh Nạp Thẻ Cào
         function thucThiBaoNapTheCao() {
-            const type = document.getElementById('inpLoaiThe').value;
-            const val = parseInt(document.getElementById('inpMenhGiaThe').value);
-            const seri = document.getElementById('inpSeriThe').value.trim();
-            const code = document.getElementById('inpMaThe').value.trim();
-            
-            if(!seri || !code) return showToast("❌ Phải nhập đủ Số Seri và Mã Thẻ cào!", "error");
-            
-            const reqRef = database.ref('nap_tien_cho_duyet').push();
-            reqRef.set({
-                id: reqRef.key, uid: currentUserId, type: "CARD", cardType: type, amount: val, seri: seri, code: code, status: "Chờ Duyệt", time: Date.now()
+            const t = document.getElementById('inpLoaiThe').value;
+            const v = parseInt(document.getElementById('inpMenhGiaThe').value);
+            const s = document.getElementById('inpSeriThe').value.trim();
+            const c = document.getElementById('inpMaThe').value.trim();
+            if (!s || !c) return showToast("Cần nhập đủ Seri và Mã Thẻ!", "error");
+            database.ref('nap_tien_cho_duyet').push({
+                uid: currentUserId,
+                type: "CARD",
+                cardType: t,
+                amount: v,
+                seri: s,
+                code: c,
+                status: "Chờ Duyệt",
+                time: Date.now()
             }).then(() => {
-                showToast("🚀 Thẻ cào đã được gửi lên hệ thống kiểm duyệt!", "success");
+                showToast("Đã gửi thẻ cào lên kho kiểm duyệt!", "success");
                 document.getElementById('inpSeriThe').value = "";
                 document.getElementById('inpMaThe').value = "";
                 xuLyChuyenTrang('history-dep');
             });
         }
 
-        // Khách Bấm Nút "Mua Ngay"
-        function xuLyMuaHeThong(itemId, itemName, price, prodType) {
-            if(!currentUserId) return showToast("❌ Vui lòng Đăng nhập trước khi giao dịch!", "error");
-            
-            // Lấy số dư hiện tại
-            database.ref('users/' + currentUserId + '/balance').once('value').then(snapshot => {
-                const bal = snapshot.val() || 0;
-                
-                if(bal < price) {
-                    showToast(`❌ Số dư ví không đủ! Cần nạp thêm ${(price - bal).toLocaleString('vi-VN')} đ`, "error");
-                    return;
-                }
-                
-                if(confirm(`⚠️ BẠN CÓ CHẮC CHẮN MUỐN MUA:\nSản phẩm: ${itemName}\nThanh toán: ${price.toLocaleString('vi-VN')} đ?`)) {
-                    // Trừ tiền ngay lập tức
+        function xuLyMuaAccTrucTiep(itemId, itemName, price, prodType) {
+            if (!currentUserId) return showToast("Cần đăng nhập để mua hàng!", "error");
+            database.ref('users/' + currentUserId + '/balance').once('value').then(snap => {
+                const bal = snap.val() || 0;
+                if (bal < price) return showToast(
+                    `Bạn thiếu ${(price - bal).toLocaleString('vi-VN')} đ. Nạp thêm tiền đi bro!`, "error");
+                if (confirm(`Xác nhận mua: ${itemName}\nGiá: ${price.toLocaleString('vi-VN')} đ`)) {
                     database.ref('users/' + currentUserId + '/balance').set(bal - price).then(() => {
-                        
-                        // Đẩy đơn lên hàng chờ Admin xử lý
-                        const orderRef = database.ref('don_hang_cho_duyet').push();
-                        orderRef.set({
-                            id: orderRef.key, uid: currentUserId,
-                            itemId: itemId, itemName: itemName, price: price, type: prodType,
-                            status: "Chờ Duyệt", dataGiao: "", time: Date.now()
+                        database.ref('don_hang_cho_duyet').push({
+                            uid: currentUserId,
+                            itemId: itemId,
+                            itemName: itemName,
+                            price: price,
+                            type: prodType,
+                            status: "Chờ Duyệt",
+                            dataGiao: "",
+                            time: Date.now()
                         }).then(() => {
-                            showToast("🎉 Đặt hàng thành công! Đã trừ tiền tự động.", "success");
-                            // Trượt qua tab Lịch sử tương ứng
-                            if(prodType === 'buff') xuLyChuyenTrang('history-buff');
-                            else xuLyChuyenTrang('history-buy');
+                            showToast("Đặt mua ACC thành công!", "success");
+                            xuLyChuyenTrang('history-buy');
                         });
-                        
                     });
                 }
             });
         }
 
-        // Khởi động UI khi tải xong file HTML
+        let tempBuffOrderData = null;
+
+        function moKhungMuaBuff(id, name, price, type) {
+            if (!currentUserId) return showToast("Vui lòng đăng nhập để tạo đơn Buff!", "error");
+            tempBuffOrderData = { id, name, price, type };
+            document.getElementById('lblBuffName').innerText = name;
+            document.getElementById('lblBuffPrice').innerText = price.toLocaleString('vi-VN') + ' đ';
+            document.getElementById('inpBuffTargetLink').value = "";
+            document.getElementById('modalBuffOrderUI').classList.add('is-active');
+        }
+
+        function dongKhungMuaBuff() {
+            document.getElementById('modalBuffOrderUI').classList.remove('is-active');
+            tempBuffOrderData = null;
+        }
+
+        function xacNhanMuaBuff() {
+            if (!tempBuffOrderData) return;
+            const targetLink = document.getElementById('inpBuffTargetLink').value.trim();
+            if (!targetLink) return showToast("❌ Bạn chưa nhập Link cần chạy Buff!", "error");
+            if (!targetLink.startsWith("http")) return showToast("❌ Link không hợp lệ, phải bắt đầu bằng http hoặc https",
+                "warning");
+            const { id, name, price, type } = tempBuffOrderData;
+            database.ref('users/' + currentUserId + '/balance').once('value').then(snap => {
+                const bal = snap.val() || 0;
+                if (bal < price) {
+                    showToast(`Số dư không đủ! Bạn thiếu ${(price - bal).toLocaleString('vi-VN')} đ.`, "error");
+                    return;
+                }
+                database.ref('users/' + currentUserId + '/balance').set(bal - price).then(() => {
+                    database.ref('don_hang_cho_duyet').push({
+                        uid: currentUserId,
+                        itemId: id,
+                        itemName: name,
+                        price: price,
+                        type: type,
+                        targetLink: targetLink,
+                        status: "Chờ Duyệt",
+                        dataGiao: "",
+                        time: Date.now()
+                    }).then(() => {
+                        showToast("🎉 Đặt đơn Buff thành công! Admin sẽ cắm tool ngay lập tức.",
+                            "success");
+                        dongKhungMuaBuff();
+                        xuLyChuyenTrang('history-buff');
+                    });
+                });
+            });
+        }
+
+        // Ripple Effect
+        function createRipple(event) {
+            const button = event.currentTarget;
+            if (!button.classList.contains('btn-ripple')) return;
+            const ripple = document.createElement('span');
+            ripple.classList.add('ripple-effect');
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (event.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (event.clientY - rect.top - size / 2) + 'px';
+            button.appendChild(ripple);
+            ripple.addEventListener('animationend', () => { ripple.remove(); });
+        }
+
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.btn-ripple');
+            if (btn) {
+                createRipple(e);
+            }
+        });
+
         window.onload = () => {
             renderKhoHangVaoUI();
-            console.log("🚀 LNHAT MMO ULTIMATE - System Initialized Successfully!");
+            const initialHash = location.hash.replace('#', '');
+            if (initialHash && document.getElementById('view-' + initialHash)) {
+                xuLyChuyenTrang(initialHash);
+            }
+            console.log("🚀 LNHAT MMO ULTIMATE - Khởi chạy v3.0 (Next-Gen 2026) Thành Công!");
         };
     </script>
 </body>
