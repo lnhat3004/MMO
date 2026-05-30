@@ -329,6 +329,19 @@
             padding: 4px 10px;
             border-radius: 20px;
             text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+        }
+        .brand-tech-icon {
+            width: 16px;
+            height: 16px;
+            margin-left: 6px;
+            stroke: var(--accent-cyan);
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 4px rgba(56,189,248,0.7));
         }
         .header-actions {
             display: flex;
@@ -1201,6 +1214,58 @@
                 z-index: 96;
             }
         }
+
+        /* ========== UI SPACING FIXES (YÊU CẦU 1) ========== */
+        .filter-group {
+            gap: 10px;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+        }
+        .product-grid {
+            gap: 22px;
+        }
+        .product-item {
+            padding: 22px;
+        }
+        .prod-badge {
+            top: 14px;
+            right: 14px;
+            padding: 4px 10px;
+            font-size: 0.7rem;
+        }
+        .prod-title {
+            margin-bottom: 8px;
+            padding-right: 60px;
+            font-size: 1.1rem;
+        }
+        .prod-desc {
+            margin-bottom: 18px;
+        }
+        .prod-footer {
+            padding-top: 16px;
+        }
+        /* Căn chỉnh thêm flex cho các phần tử bên trong nếu cần */
+        .product-item {
+            gap: 4px;
+        }
+        .brand-zone {
+            gap: 10px;
+        }
+        .brand-tech-icon {
+            width: 18px;
+            height: 18px;
+            margin-left: 4px;
+        }
+        /* Tổng quan gọn gàng hơn */
+        .glass-card {
+            padding: 30px;
+        }
+        .section-heading {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+        }
     </style>
 </head>
 <body>
@@ -1233,6 +1298,10 @@
                 </linearGradient>
             </defs>
         </symbol>
+        <!-- Icon công nghệ mới thay thế logo xấu (YÊU CẦU 2) -->
+        <symbol id="icon-tech-zap" viewBox="0 0 24 24">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
     </svg>
 
     <div id="toastContainer" class="toast-wrapper"></div>
@@ -1242,7 +1311,7 @@
         <div class="brand-zone" onclick="location.reload()">
             <svg class="brand-logo-custom"><use href="#icon-logo-lnhat"></use></svg>
             <span class="brand-name">LNHAT MMO</span>
-            <span class="brand-tag">ULTIMATE</span>
+            <span class="brand-tag">ULTIMATE<svg class="brand-tech-icon"><use href="#icon-tech-zap"></use></svg></span>
         </div>
         <div class="header-actions" id="headerAuthBtns">
             <button class="btn btn-outline btn-ripple" onclick="moKhungAuth('login')">Đăng Nhập</button>
@@ -1554,6 +1623,7 @@
         </div>
     </div>
 
+    <!-- MODAL BUFF ĐÃ NÂNG CẤP (YÊU CẦU 3) -->
     <div class="modal-container" id="modalBuffOrderUI">
         <div class="modal-content" style="max-width: 550px;">
             <button class="modal-close-btn" onclick="dongKhungMuaBuff()"><svg class="svg-icon"><use href="#icon-x"></use></svg></button>
@@ -1563,13 +1633,21 @@
             </div>
             <div class="buff-pack-info">
                 <p>Tên dịch vụ: <strong id="lblBuffName" style="color: var(--accent-cyan);">Loading...</strong></p>
-                <p>Thanh toán: <strong id="lblBuffPrice" style="color: var(--status-success-text); font-size:1.2rem;">0 đ</strong></p>
+                <p>Đơn giá: <strong id="lblBuffPrice" style="color: var(--status-success-text); font-size:1.2rem;">0 đ</strong></p>
             </div>
             <div class="input-group">
                 <label>Nhập Link Cần Chạy Buff (Bắt buộc):</label>
                 <input type="url" id="inpBuffTargetLink" class="input-control" placeholder="Ví dụ: https://www.tiktok.com/@username/video/123...">
             </div>
-            <button class="btn btn-primary btn-ripple" style="width: 100%; padding: 14px; margin-top: 20px; font-size: 1rem;" onclick="xacNhanMuaBuff()">
+            <div class="input-group">
+                <label>Số lượng (Quantity):</label>
+                <input type="number" id="inpBuffQuantity" class="input-control" placeholder="Nhập số lượng" min="1" value="1" step="1" oninput="updateBuffTotal()">
+            </div>
+            <div class="input-group" style="margin-bottom: 20px;">
+                <label>Tổng tiền thanh toán:</label>
+                <div id="lblBuffTotal" style="font-size: 1.5rem; font-weight: 900; color: var(--accent-cyan); padding: 12px 0; border-bottom: 2px solid var(--glass-border);">0 đ</div>
+            </div>
+            <button class="btn btn-primary btn-ripple" style="width: 100%; padding: 14px; margin-top: 10px; font-size: 1rem;" onclick="xacNhanMuaBuff()">
                 XÁC NHẬN THANH TOÁN & ĐẶT ĐƠN
             </button>
         </div>
@@ -1883,7 +1961,7 @@
                         if (item.type === "buff") {
                             tbBuff.innerHTML += `
                                 <tr>
-                                    <td><strong>${item.itemName}</strong></td>
+                                    <td><strong>${item.itemName}</strong> ${item.quantity ? `(x${item.quantity})` : ''}</td>
                                     <td><a href="${item.targetLink}" target="_blank" style="color:var(--accent-cyan); text-decoration:underline;">Xem Link</a></td>
                                     <td style="color:var(--status-warning-text); font-weight:700;">${item.price.toLocaleString('vi-VN')} đ</td>
                                     <td>${stBadge} <div style="margin-top:6px; font-size:0.85rem; color:var(--text-muted);">${item.dataGiao || 'Admin đang xử lý...'}</div></td>
@@ -2034,12 +2112,33 @@
 
         let tempBuffOrderData = null;
 
+        // Hàm tính tổng tiền realtime cho buff
+        function updateBuffTotal() {
+            if (!tempBuffOrderData) return;
+            const qtyInput = document.getElementById('inpBuffQuantity');
+            const totalLabel = document.getElementById('lblBuffTotal');
+            let quantity = parseInt(qtyInput.value);
+            if (isNaN(quantity) || quantity < 1) {
+                quantity = 1;
+                qtyInput.value = 1;
+            }
+            const unitPrice = tempBuffOrderData.pricePerUnit;
+            const total = unitPrice * quantity;
+            totalLabel.innerText = total.toLocaleString('vi-VN') + ' đ';
+            // Lưu tạm tổng tiền để dùng khi xác nhận
+            tempBuffOrderData.currentTotal = total;
+            tempBuffOrderData.currentQuantity = quantity;
+        }
+
         function moKhungMuaBuff(id, name, price, type) {
             if (!currentUserId) return showToast("Vui lòng đăng nhập để tạo đơn Buff!", "error");
-            tempBuffOrderData = { id, name, price, type };
+            tempBuffOrderData = { id, name, pricePerUnit: price, type, currentQuantity: 1, currentTotal: price };
             document.getElementById('lblBuffName').innerText = name;
             document.getElementById('lblBuffPrice').innerText = price.toLocaleString('vi-VN') + ' đ';
             document.getElementById('inpBuffTargetLink').value = "";
+            const qtyInput = document.getElementById('inpBuffQuantity');
+            qtyInput.value = 1;
+            document.getElementById('lblBuffTotal').innerText = price.toLocaleString('vi-VN') + ' đ';
             document.getElementById('modalBuffOrderUI').classList.add('is-active');
         }
 
@@ -2054,21 +2153,26 @@
             if (!targetLink) return showToast("❌ Bạn chưa nhập Link cần chạy Buff!", "error");
             if (!targetLink.startsWith("http")) return showToast("❌ Link không hợp lệ, phải bắt đầu bằng http hoặc https",
                 "warning");
-            const { id, name, price, type } = tempBuffOrderData;
+            
+            const quantity = tempBuffOrderData.currentQuantity || 1;
+            const totalPrice = tempBuffOrderData.currentTotal || tempBuffOrderData.pricePerUnit;
+            const { id, name, type } = tempBuffOrderData;
+
             database.ref('users/' + currentUserId + '/balance').once('value').then(snap => {
                 const bal = snap.val() || 0;
-                if (bal < price) {
-                    showToast(`Số dư không đủ! Bạn thiếu ${(price - bal).toLocaleString('vi-VN')} đ.`, "error");
+                if (bal < totalPrice) {
+                    showToast(`Số dư không đủ! Bạn thiếu ${(totalPrice - bal).toLocaleString('vi-VN')} đ.`, "error");
                     return;
                 }
-                database.ref('users/' + currentUserId + '/balance').set(bal - price).then(() => {
+                database.ref('users/' + currentUserId + '/balance').set(bal - totalPrice).then(() => {
                     database.ref('don_hang_cho_duyet').push({
                         uid: currentUserId,
                         itemId: id,
                         itemName: name,
-                        price: price,
+                        price: totalPrice,
                         type: type,
                         targetLink: targetLink,
+                        quantity: quantity,
                         status: "Chờ Duyệt",
                         dataGiao: "",
                         time: Date.now()
